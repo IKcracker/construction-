@@ -2,7 +2,6 @@ import {NextRequest} from "next/server";
 import {db} from "@/lib/forge/db";
 import {createSession,checkPassword,safeSameOrigin,loginFingerprint} from "@/lib/forge/security";
 import {fail,json} from "@/lib/forge/response";
-export const runtime="nodejs";
 export async function POST(request:NextRequest){
  if(!safeSameOrigin(request))return fail("Origin verification failed",403);
  try{
