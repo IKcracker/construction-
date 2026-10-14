@@ -7,6 +7,25 @@ A dedicated Neon PostgreSQL project named **forge-construction-crm**, database *
 
 Schema: `db/forge-schema.sql` — organization, staff, sessions, records, document attachments, audit events and login throttling. The schema has been applied to the dedicated Neon project.
 
+## Database CLI commands
+
+The project uses the `postgres` client and versioned SQL migrations, **not Prisma**.
+
+```powershell
+npm install
+npm run db:generate
+npm run db:migrate
+```
+
+- `npm run db:generate` checks the canonical initial schema and creates the baseline migration if it is absent. Running it again does not rewrite an existing migration.
+- `npm run db:generate -- add_project_field` scaffolds the next numbered SQL migration. **Edit that SQL file** with the intended ALTER TABLE / CREATE statements, then run `npm run db:migrate`.
+- `npm run db:migrate` connects with `FORGE_DATABASE_URL` from `.env.local`, applies pending migrations in order, and records SHA-256 checksums in `crm_schema_migrations`.
+- `npm run db:validate` validates migration filenames and SQL presence without accessing the database.
+- A previously applied SQL file must never be rewritten. Create a new migration for subsequent changes.
+- The original schema was already installed in the dedicated Neon `forgecrm` database. The first migration run may therefore create the tracking record without changing those already-existing tables.
+
+For safety, never run migrations using another project's DATABASE_URL or commit the real database connection string.
+
 ## Private environment settings
 At the deployment platform, set:
 - `FORGE_DATABASE_URL`: dedicated PostgreSQL connection string for `forgecrm`, SSL required, configured as a server-only secret.
