@@ -2,7 +2,6 @@ import {NextRequest} from "next/server";
 import {db} from "@/lib/forge/db";
 import {authorize,fail,json} from "@/lib/forge/response";
 import {audit} from "@/lib/forge/security";
-export const runtime="nodejs";
 const maxBytes=4*1024*1024;
 export async function GET(request:NextRequest){
  const auth=await authorize(request);
