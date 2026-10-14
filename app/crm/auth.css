@@ -1,0 +1,28 @@
+.forge-login-page{font-family:var(--font-geist-sans),Arial,sans-serif;display:grid;grid-template-columns:minmax(300px,43%) 1fr;min-height:100dvh;background:#f7f8fa;color:#1c2e36}
+.forge-login-sidebar{background:#142530;color:#fff;padding:55px clamp(28px,5vw,90px);display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;position:relative}
+.forge-login-sidebar:after{content:"";width:500px;height:500px;border:110px solid #ffffff0a;border-radius:50%;position:absolute;bottom:-240px;right:-250px;pointer-events:none}
+.forge-auth-brand{font-size:33px;line-height:1;font-weight:900;letter-spacing:-.08em;display:flex;align-items:center;gap:8px}
+.forge-auth-brand>span,.forge-auth-mobile-logo span{color:#e97d4c}
+.forge-auth-brand>small{font-size:10px;font-weight:800;letter-spacing:.18em;margin-left:16px;color:#bed0d5}
+.forge-login-pitch{position:relative;z-index:1}
+.forge-login-pitch>span,.forge-auth-label{font-size:10px;font-weight:850;letter-spacing:.17em;color:#e29b73}
+.forge-login-pitch h1{font-size:clamp(48px,5.3vw,81px);letter-spacing:-.075em;line-height:1.08;margin:28px 0}
+.forge-login-pitch>p{font-size:16px;max-width:420px;color:#c0cdd0;line-height:1.85}
+.forge-login-points{display:grid;gap:17px;font-weight:800;color:#a5b9bf;font-size:11px;letter-spacing:.07em;margin-top:60px}
+.forge-auth-foot{font-size:11px;color:#829ba5;position:relative;z-index:1}
+.forge-login-main{min-height:100dvh;display:flex;align-items:center;justify-content:center;padding:55px 24px}
+.forge-login-card{width:min(430px,100%);display:flex;flex-direction:column;gap:0}
+.forge-login-card>h1,.forge-login-card>h2{font-size:clamp(32px,3.5vw,43px);line-height:1.1;letter-spacing:-.055em;margin:16px 0}
+.forge-login-card>p{font-size:14px;color:#809099;line-height:1.8;margin-bottom:29px}
+.forge-login-card>label{font-size:12px;font-weight:750;color:#475864;display:grid;gap:10px;margin-bottom:19px}
+.forge-login-card input{font:inherit;font-size:13px;min-height:52px;padding:0 16px;border:1px solid #d8e1e5;border-radius:9px;background:#fff;color:#273c45;width:100%}
+.forge-login-card input:focus-visible{outline:2px solid #e47a4b;outline-offset:2px}
+.forge-login-card>button{margin-top:14px;min-height:53px;border:0;border-radius:8px;background:#df7645;color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 19px;font-size:12px;font-weight:850;cursor:pointer}
+.forge-login-card>button:hover{background:#c85c2e}
+.forge-login-card>button:disabled{opacity:.65;cursor:wait}
+.forge-auth-security{font-size:11px;color:#8f9fa5;margin-top:23px;display:flex;align-items:center;justify-content:center;gap:8px}
+.forge-auth-error{background:#fff0ed;border:1px solid #f3cfc7;border-radius:8px;padding:12px 14px;font-size:12px;color:#ac4c3a;margin-bottom:9px}
+.forge-auth-mobile-logo{display:none}
+body:has(.forge-login-page){margin:0}
+@media(max-width:850px){.forge-login-page{grid-template-columns:1fr}.forge-login-sidebar{display:none}.forge-login-main{padding:45px 22px;min-height:100dvh}.forge-auth-mobile-logo{display:block;font-size:29px;font-weight:900;letter-spacing:-.06em;margin-bottom:55px}.forge-login-card{width:min(430px,100%)}}
+@media(max-width:450px){.forge-login-main{padding:35px 22px}.forge-login-card h2{font-size:32px}.forge-auth-mobile-logo{margin-bottom:42px}}
