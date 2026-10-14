@@ -8,7 +8,7 @@ const routes = [
   "/", "/about", "/services", "/services/building-construction",
   "/services/civil-engineering", "/services/materials-supply",
   "/projects", "/projects/commercial-development", "/process",
-  "/materials", "/contact"
+  "/materials", "/contact", "/crm-demo"
 ];
 const requiredSelectors = [".hero", ".header", ".service-card", ".page-hero", ".contact-form", ".footer .footer-grid"];
 const footerCssSource=readFileSync("app/globals.css","utf8");
@@ -58,6 +58,24 @@ async function main() {
     const links = html.match(/<link\b[^>]*\brel="stylesheet"[^>]*>/g) || [];
     const hrefs = links.map(link => link.match(/\bhref="([^"]+)"/)?.[1]).filter(Boolean);
     if (hrefs.length === 0) throw new Error(`No stylesheet link in HTML for ${route}`);
+    if (route === "/crm-demo") {
+      if (!html.includes("FORGE") || !html.includes("Tender pipeline")) {
+        throw new Error("Construction CRM showcase did not render");
+      }
+      if (html.includes("CONCEPT WEBSITE · SAMPLE CONTENT")) {
+        throw new Error("CRM route leaked public marketing site shell");
+      }
+      const styles=await Promise.all(hrefs.map(async href => {
+        const cssResult=await fetch(new URL(href,origin));
+        if(!cssResult.ok)throw new Error("CRM stylesheet failed to load");
+        return cssResult.text();
+      }));
+      const crmCss=styles.join("\\n");
+      for(const selector of [".forge-app",".forge-sidebar",".forge-table",".forge-drawer"]) {
+        if(!crmCss.includes(selector))throw new Error("Missing CRM styling: "+selector);
+      }
+      console.log("PASS interactive CRM showcase and isolated layout");
+    }
     cssUrl ||= hrefs.find(href => href.includes(".css"));
     console.log(`PASS page ${route}: HTTP ${result.status}, ${hrefs.length} stylesheet link(s)`);
   }
