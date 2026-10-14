@@ -30,6 +30,7 @@ export function CRMShowcase({user}:{user:ForgeUser}){
  const [staffBusy,setStaffBusy]=useState(false);
  const owners=useMemo(()=>[...new Set([user.name,...staff.map(x=>x.name)])],[staff,user.name]);
  const [loaded,setLoaded]=useState(false);
+ const [today]=useState(()=>new Date());
  const [active,setActive]=useState<ViewKey>("overview");
  const [query,setQuery]=useState("");
  const [filter,setFilter]=useState("All statuses");
@@ -99,7 +100,7 @@ export function CRMShowcase({user}:{user:ForgeUser}){
  const openTenders=store.tenders.filter(r=>!["Awarded","Declined"].includes(r.status));
  const activeProjects=store.projects.filter(r=>!["Completed","On Hold"].includes(r.status));
  const pendingQuotes=store.quotes.filter(r=>!["Approved","Rejected"].includes(r.status));
- const urgentTasks=store.tasks.filter(r=>r.status!=="Done"&&r.date<=new Date(Date.now()+10*86400000).toISOString().slice(0,10));
+ const urgentTasks=store.tasks.filter(r=>r.status!=="Done"&&r.date<=new Date(today.getTime()+10*86400000).toISOString().slice(0,10));
  const tendervalue=openTenders.reduce((s,r)=>s+r.amount,0);
  const revenue=store.projects.filter(r=>r.status!=="Completed").reduce((s,r)=>s+r.amount,0);
  const quoteValue=pendingQuotes.reduce((s,r)=>s+r.amount,0);
@@ -217,7 +218,7 @@ export function CRMShowcase({user}:{user:ForgeUser}){
    <main className="forge-main">
     <div className="forge-notice"><Icon name="info" size={15}/><span><strong>Secure workspace</strong> · {workspaceMessage}</span><button onClick={refresh}>Refresh records <Icon name="refresh" size={14}/></button></div>
     {active==="overview"&&<>
-     <div className="forge-page-head forge-dashboard-head"><div><div className="forge-eyebrow"><span/>{new Date().toLocaleDateString("en-ZA",{weekday:"long",day:"numeric",month:"long",year:"numeric"}).toUpperCase()}</div><h1>Good afternoon, <span>team.</span></h1><p>Here&apos;s what&apos;s happening across your construction pipeline today.</p></div>{user.role!=="viewer"&&<button className="forge-btn forge-btn-primary" onClick={()=>startForm("tenders",undefined,"create")}><Icon name="plus" size={18}/> New opportunity</button>}</div>
+     <div className="forge-page-head forge-dashboard-head"><div><div className="forge-eyebrow"><span/>{today.toLocaleDateString("en-ZA",{weekday:"long",day:"numeric",month:"long",year:"numeric"}).toUpperCase()}</div><h1>Good afternoon, <span>team.</span></h1><p>Here&apos;s what&apos;s happening across your construction pipeline today.</p></div>{user.role!=="viewer"&&<button className="forge-btn forge-btn-primary" onClick={()=>startForm("tenders",undefined,"create")}><Icon name="plus" size={18}/> New opportunity</button>}</div>
      <div className="forge-quick-search"><Icon name="search" size={18}/><input aria-label="Search across the CRM" value={query} onChange={e=>setQuery(e.target.value)} placeholder="Search the entire workspace by client, tender, project or owner..." />{query&&<button type="button" aria-label="Clear search" onClick={()=>setQuery("")}><Icon name="x" size={17}/></button>}<span>ALL RECORDS</span></div>
      {query&&<div className="forge-card forge-search-results"><div className="forge-card-head"><strong>Matching records</strong><span>{globalResults.length} results</span></div>{globalResults.map(r=><button key={r.id} onClick={()=>{changeView(r.module);startForm(r.module,r)}}><Icon name={iconName[r.module]}/><span><strong>{r.title}</strong><small>{config[r.module].singular} · {r.client}</small></span><Icon name="arrow-right"/></button>)}{!globalResults.length&&<p>No records match your search.</p>}</div>}
      <div className="forge-stats">
