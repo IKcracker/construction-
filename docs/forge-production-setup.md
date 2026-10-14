@@ -42,6 +42,21 @@ Do not set these as `NEXT_PUBLIC_*`. Do not commit credentials or actual user in
 5. Remove `FORGE_BOOTSTRAP_TOKEN` from hosting settings and redeploy.
 6. Invite staff from the Team dialog. Staff should change their temporary password at first sign-in.
 
+## Password reset and account security
+
+FORGE now supports password reset requests from the login screen and a Change password action for signed-in users. Apply migration `0002_password_reset_tokens.sql` using `npm run db:migrate`.
+
+Password reset emails require the following **server-only** settings:
+- `RESEND_API_KEY` — API key for the Resend transactional email service.
+- `FORGE_RESET_FROM_EMAIL` — sender email at a verified domain.
+- `FORGE_APP_URL` — the absolute HTTPS application URL where the reset link opens.
+
+No email is sent unless these are configured. Never send a reset token to an unverified URL, commit credentials or use a client-exposed `NEXT_PUBLIC_*` variable.
+
+The recovery request returns a neutral message regardless of whether the account exists. Successful reset links expire after 20 minutes, are hashed at rest, may be used once, and invalidate existing sessions. Users must set a password of at least 12 characters.
+
+**Local development:** for recovery on localhost you need an HTTPS development address for `FORGE_APP_URL` (or a dedicated secure development deployment), because recovery email links intentionally require HTTPS. Sign-in and authenticated password changes work locally without email configuration.
+
 ## Roles
 - Admin: read/write/delete records, manage team, delete document attachments.
 - Editor: read/write records, upload attachments.
