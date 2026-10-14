@@ -25,11 +25,11 @@ export function validateInput(data:unknown,kind:ModuleKey):{data:Omit<CrmRecord,
 }
 export function mapRecord(row:Record<string,unknown>):CrmRecord{
  return {id:String(row.id),title:String(row.title),client:String(row.client),owner:String(row.owner),
- status:String(row.status),amount:Number(row.amount),date:String(row.date),description:String(row.description||""),progress:Number(row.progress||0)};
+ status:String(row.status),amount:Number(row.amount),date:String(row.date),description:String(row.description||""),progress:Number(row.progress||0),isSample:Boolean(row.is_sample)};
 }
 export async function getRecords(user:ForgeUser){
  const rows=await db()`SELECT id,kind,title,client,owner,status,amount,progress,
- to_char(target_date,'YYYY-MM-DD') AS date,description
+ to_char(target_date,'YYYY-MM-DD') AS date,description,is_sample
  FROM crm_records WHERE organization_id=${user.organizationId} ORDER BY created_at DESC LIMIT 1500`;
  const result:Record<ModuleKey,CrmRecord[]>={tenders:[],quotes:[],projects:[],clients:[],tasks:[],documents:[]};
  for(const row of rows){
