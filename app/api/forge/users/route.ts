@@ -2,7 +2,6 @@ import {NextRequest} from "next/server";
 import {db} from "@/lib/forge/db";
 import {hashPassword} from "@/lib/forge/security";
 import {authorize,fail,json} from "@/lib/forge/response";
-export const runtime="nodejs";
 export async function GET(request:NextRequest){
  const auth=await authorize(request);
  if("response" in auth)return auth.response;
