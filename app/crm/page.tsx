@@ -1,18 +1,18 @@
 import type {Metadata} from "next";
+import {connection} from "next/server";
 import {getForgeUser} from "@/lib/forge/security";
 import {isForgeConfigured,db} from "@/lib/forge/db";
 import {CRMShowcase} from "@/app/crm-demo/crm-showcase";
 import {ForgeSignIn} from "./sign-in";
 import "../crm-demo/crm.css";
 import "./auth.css";
-export const runtime="nodejs";
-export const dynamic="force-dynamic";
 export const metadata:Metadata={
  title:"FORGE | Construction CRM",
  description:"Secure construction CRM for tender management, quotations, projects, contacts and document control.",
  robots:{index:false,follow:false}
 };
 export default async function CRMPage(){
+ await connection();
  if(!isForgeConfigured()){
   return <div className="forge-login-page"><div className="forge-login-card"><div className="forge-auth-brand">F<span>.</span> <small>FORGE CRM</small></div><h1>Workspace configuration required</h1><p>Connect your dedicated PostgreSQL database using the FORGE_DATABASE_URL environment variable before opening this private CRM.</p><p>The public construction website is unaffected. Ask your administrator to complete the private CRM setup.</p></div></div>;
  }
