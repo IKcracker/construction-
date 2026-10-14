@@ -81,7 +81,7 @@ async function main() {
     console.log(`PASS page ${route}: HTTP ${result.status}, ${hrefs.length} stylesheet link(s)`);
   }
   // A public visitor must never be able to access organization records or staff lists.
-  for (const privatePath of ["/api/forge/records","/api/forge/users","/api/forge/me"]) {
+  for (const privatePath of ["/api/forge/records","/api/forge/users","/api/forge/me","/api/forge/seeds"]) {
     const response=await fetch(origin+privatePath);
     if(response.status!==401)throw new Error(`Unprotected CRM endpoint ${privatePath}: HTTP ${response.status}`);
     console.log(`PASS unauthorized CRM API ${privatePath}: HTTP 401`);
