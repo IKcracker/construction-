@@ -8,7 +8,7 @@ const routes = [
   "/", "/about", "/services", "/services/building-construction",
   "/services/civil-engineering", "/services/materials-supply",
   "/projects", "/projects/commercial-development", "/process",
-  "/materials", "/contact", "/crm-demo"
+  "/materials", "/contact", "/crm", "/crm-demo"
 ];
 const requiredSelectors = [".hero", ".header", ".service-card", ".page-hero", ".contact-form", ".footer .footer-grid"];
 const footerCssSource=readFileSync("app/globals.css","utf8");
@@ -58,23 +58,23 @@ async function main() {
     const links = html.match(/<link\b[^>]*\brel="stylesheet"[^>]*>/g) || [];
     const hrefs = links.map(link => link.match(/\bhref="([^"]+)"/)?.[1]).filter(Boolean);
     if (hrefs.length === 0) throw new Error(`No stylesheet link in HTML for ${route}`);
-    if (route === "/crm-demo") {
-      if (!html.includes("FORGE") || !html.includes("Tender pipeline")) {
-        throw new Error("Construction CRM showcase did not render");
+    if (route === "/crm" || route === "/crm-demo") {
+      if (!html.includes("FORGE") || !html.includes("configuration required")) {
+        throw new Error("Private CRM should render only a setup screen when database credentials are absent");
       }
-      if (html.includes("CONCEPT WEBSITE · SAMPLE CONTENT")) {
-        throw new Error("CRM route leaked public marketing site shell");
+      if (html.includes("Tender pipeline") || html.includes("CONCEPT WEBSITE · SAMPLE CONTENT")) {
+        throw new Error("Private CRM leaked internal records or public marketing shell");
       }
       const styles=await Promise.all(hrefs.map(async href => {
         const cssResult=await fetch(new URL(href,origin));
         if(!cssResult.ok)throw new Error("CRM stylesheet failed to load");
         return cssResult.text();
       }));
-      const crmCss=styles.join("\\n");
+      const crmCss=styles.join("\n");
       for(const selector of [".forge-app",".forge-sidebar",".forge-table",".forge-drawer"]) {
-        if(!crmCss.includes(selector))throw new Error("Missing CRM styling: "+selector);
+        if(!crmCss.includes(selector))throw new Error("Missing production CRM styling: "+selector);
       }
-      console.log("PASS interactive CRM showcase and isolated layout");
+      console.log("PASS private CRM sign-in gate and isolated layout");
     }
     cssUrl ||= hrefs.find(href => href.includes(".css"));
     console.log(`PASS page ${route}: HTTP ${result.status}, ${hrefs.length} stylesheet link(s)`);
