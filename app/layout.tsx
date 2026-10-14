@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { SiteShell } from "@/components/site-shell";
+import { Suspense } from "react";
 import "./globals.css";
 
 const geistSans=Geist({variable:"--font-geist-sans",subsets:["latin"]});
@@ -12,6 +13,6 @@ export const metadata:Metadata={
 };
 export default function RootLayout({children}:LayoutProps<"/">){
  return <html lang="en" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
-  <body className="min-h-full flex flex-col"><SiteShell>{children}</SiteShell></body>
+  <body className="min-h-full flex flex-col"><Suspense fallback={<div role="status" style={{padding:"24px",color:"#52636b"}}>Loading page…</div>}><SiteShell>{children}</SiteShell></Suspense></body>
  </html>;
 }
