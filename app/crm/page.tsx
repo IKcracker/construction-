@@ -16,14 +16,20 @@ export default async function CRMPage(){
  if(!isForgeConfigured()){
   return <div className="forge-login-page"><div className="forge-login-card"><div className="forge-auth-brand">F<span>.</span> <small>FORGE CRM</small></div><h1>Workspace configuration required</h1><p>Connect your dedicated PostgreSQL database using the FORGE_DATABASE_URL environment variable before opening this private CRM.</p><p>The public construction website is unaffected. Ask your administrator to complete the private CRM setup.</p></div></div>;
  }
+ let user:Awaited<ReturnType<typeof getForgeUser>>=null;
+ let initial=false;
+ let unavailable=false;
  try{
-  const user=await getForgeUser();
-  if(user)return <CRMShowcase user={user}/>;
-  const admins=await db()`SELECT count(*)::int AS total FROM crm_users`;
-  const initial=admins[0].total===0 && Boolean(process.env.FORGE_BOOTSTRAP_TOKEN&&process.env.FORGE_BOOTSTRAP_TOKEN.length>=32);
-  return <ForgeSignIn initial={initial}/>;
+  user=await getForgeUser();
+  if(!user){
+   const admins=await db()`SELECT count(*)::int AS total FROM crm_users`;
+   initial=admins[0].total===0 && Boolean(process.env.FORGE_BOOTSTRAP_TOKEN&&process.env.FORGE_BOOTSTRAP_TOKEN.length>=32);
+  }
  }catch(error){
   console.error("FORGE workspace initialization failure",error);
-  return <div className="forge-login-page"><div className="forge-login-card"><div className="forge-auth-brand">F<span>.</span> <small>FORGE CRM</small></div><h1>Workspace temporarily unavailable</h1><p>The CRM cannot connect to its database. Check the database connection and migration status with your administrator.</p></div></div>;
+  unavailable=true;
  }
+ if(unavailable)return <div className="forge-login-page"><div className="forge-login-card"><div className="forge-auth-brand">F<span>.</span> <small>FORGE CRM</small></div><h1>Workspace temporarily unavailable</h1><p>The CRM cannot connect to its database. Check the database connection and migration status with your administrator.</p></div></div>;
+ if(user)return <CRMShowcase user={user}/>;
+ return <ForgeSignIn initial={initial}/>;
 }
