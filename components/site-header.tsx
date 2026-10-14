@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Brand } from "./brand";
 
 const links = [
@@ -15,7 +15,6 @@ const links = [
 export function SiteHeader(){
  const [open,setOpen]=useState(false);
  const pathname=usePathname();
- useEffect(()=>{setOpen(false)},[pathname]);
  return <>
   <div className="utility"><div className="wrap utility-inner"><span><span className="utility-dot" aria-hidden="true"/> CONSTRUCTION. CIVIL WORKS. MATERIALS.</span><Link href="/projects">VIEW OUR CONCEPT PORTFOLIO <span aria-hidden="true">↗</span></Link></div></div>
   <header className="header">
