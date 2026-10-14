@@ -3,6 +3,10 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { SiteShell } from "@/components/site-shell";
 import { Suspense } from "react";
 import "./globals.css";
+// Load FORGE styles from the root layout so private streamed pages never render unstyled.
+// All CRM selectors are .forge-* scoped; this does not change STRATA page styling.
+import "./crm-demo/crm.css";
+import "./crm/auth.css";
 
 const geistSans=Geist({variable:"--font-geist-sans",subsets:["latin"]});
 const geistMono=Geist_Mono({variable:"--font-geist-mono",subsets:["latin"]});
