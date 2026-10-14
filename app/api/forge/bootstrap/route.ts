@@ -3,7 +3,6 @@ import {timingSafeEqual} from "node:crypto";
 import {db} from "@/lib/forge/db";
 import {hashPassword,safeSameOrigin,createSession} from "@/lib/forge/security";
 import {fail,json} from "@/lib/forge/response";
-export const runtime="nodejs";
 export async function POST(request:NextRequest){
  if(!safeSameOrigin(request))return fail("Origin verification failed",403);
  const secret=process.env.FORGE_BOOTSTRAP_TOKEN;
