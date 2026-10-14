@@ -1,9 +1,8 @@
 import "server-only";
 import {createHash,randomBytes,scrypt as scryptCallback,timingSafeEqual} from "node:crypto";
 import {promisify} from "node:util";
-import {cookies,headers} from "next/headers";
+import {cookies} from "next/headers";
 import {db} from "./db";
-import type {NextRequest} from "next/server";
 const scrypt=promisify(scryptCallback);
 const sessionKey="forge_session";
 export type ForgeRole="admin"|"editor"|"viewer";
