@@ -3,7 +3,6 @@ import {db} from "@/lib/forge/db";
 import {authorize,fail,json} from "@/lib/forge/response";
 import {audit} from "@/lib/forge/security";
 import {isModule,validateInput} from "@/lib/forge/records";
-export const runtime="nodejs";
 type Context={params:Promise<{id:string}>};
 export async function PATCH(request:NextRequest,context:Context){
  const auth=await authorize(request,"write");
