@@ -30,6 +30,8 @@ jobs:
         run: npm run db:validate
       - name: Check migration generator
         run: npm run db:generate -- --check
+      - name: Validate fictional sample dataset
+        run: npm run db:seed:validate
       - name: Lint
         run: npm run lint
       - name: Build production bundle
