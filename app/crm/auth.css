@@ -26,3 +26,15 @@
 body:has(.forge-login-page){margin:0}
 @media(max-width:850px){.forge-login-page{grid-template-columns:1fr}.forge-login-sidebar{display:none}.forge-login-main{padding:45px 22px;min-height:100dvh}.forge-auth-mobile-logo{display:block;font-size:29px;font-weight:900;letter-spacing:-.06em;margin-bottom:55px}.forge-login-card{width:min(430px,100%)}}
 @media(max-width:450px){.forge-login-main{padding:35px 22px}.forge-login-card h2{font-size:32px}.forge-auth-mobile-logo{margin-bottom:42px}}
+
+/* Password recovery and account controls */
+.forge-login-card .forge-auth-secondary{background:transparent;color:#bb6742;border:0;min-height:auto;padding:10px 2px;margin:9px auto 0;font-weight:800;font-size:12px;display:block;cursor:pointer;text-align:center}
+.forge-login-card .forge-auth-secondary:hover{text-decoration:underline;background:transparent}
+.forge-auth-success{padding:14px;background:#e9f7ef;border:1px solid #bddbcc;border-radius:8px;color:#2a7258;line-height:1.7;font-size:12px}
+.forge-recovery-form{display:flex;flex-direction:column;gap:17px}
+.forge-recovery-form>p{font-size:13px;color:#758791;line-height:1.8;margin:0}
+.forge-recovery-form>label{display:grid;gap:9px;font-size:12px;font-weight:750;color:#475864}
+.forge-recovery-form input{min-height:49px;background:#fff;border:1px solid #d8e1e5;border-radius:8px;padding:0 14px;color:#273c45;font:inherit}
+.forge-recovery-form>button{min-height:51px;background:#df7645;color:#fff;font-weight:800;border:0;border-radius:8px;padding:0 18px;cursor:pointer}
+.forge-auth-link{display:block;text-align:center;color:#b86643;font-size:12px;font-weight:800;text-decoration:none;margin:13px 0}
+.forge-auth-link:hover{text-decoration:underline}
