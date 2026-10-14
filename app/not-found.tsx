@@ -1,0 +1,2 @@
+import Link from "next/link";
+export default function NotFound(){return <main><section className="empty-state section"><div className="wrap"><span className="overline">PAGE NOT FOUND</span><h1>Looks like this path<br/>ends here.</h1><p>The page you requested does not exist in this construction concept website.</p><Link href="/" className="button dark">BACK TO HOME <span>↗</span></Link></div></section></main>;}
