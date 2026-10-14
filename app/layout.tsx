@@ -7,6 +7,8 @@ import "./globals.css";
 // All CRM selectors are .forge-* scoped; this does not change STRATA page styling.
 import "./crm-demo/crm.css";
 import "./crm/auth.css";
+import "./crm/forge2.css";
+import "./crm/forge-record.css";
 import "./crm/workspace.css";
 
 const geistSans=Geist({variable:"--font-geist-sans",subsets:["latin"]});
