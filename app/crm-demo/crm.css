@@ -441,3 +441,13 @@ body:has(.forge-app) .forge-app{font-family:var(--font-geist-sans),Arial,sans-se
  .forge-donut-legend>div{margin:0}
 }
 @media(prefers-reduced-motion:reduce){.forge-app *{transition-duration:.01ms!important;scroll-behavior:auto!important}}
+
+/* Quick lookup across every fictional record in the workspace */
+.forge-quick-search{max-width:650px;margin:-2px 0 20px;background:white;border:1px solid #e0e8ec;border-radius:9px;display:flex;align-items:center;gap:11px;min-height:47px;padding:0 13px 0 15px;box-shadow:0 2px 10px #172e3f04}
+.forge-quick-search>svg{color:#8ea0ac;flex:none}
+.forge-quick-search>input{border:0;outline:none!important;box-shadow:none!important;background:transparent;flex:1;min-width:0;font-size:12px;color:#243747}
+.forge-quick-search>input::placeholder{color:#a7b2ba}
+.forge-quick-search>span{border-left:1px solid #e5ebed;padding-left:12px;color:#a0abb4;font-size:9px;font-weight:800;letter-spacing:.85px;white-space:nowrap}
+.forge-quick-search>button{border:0;background:none;color:#8294a1;display:grid;place-items:center}
+.forge-quick-search:focus-within{border-color:#66a7a2}
+@media(max-width:640px){.forge-quick-search{max-width:none;margin-bottom:16px}.forge-quick-search>span{display:none}.forge-quick-search>input{font-size:11px}}
