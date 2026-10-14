@@ -1,4 +1,5 @@
 import { spawn } from "node:child_process";
+import { readFileSync } from "node:fs";
 import { setTimeout as sleep } from "node:timers/promises";
 
 const port = 3127;
@@ -10,6 +11,20 @@ const routes = [
   "/materials", "/contact"
 ];
 const requiredSelectors = [".hero", ".header", ".service-card", ".page-hero", ".contact-form", ".footer .footer-grid"];
+const footerCssSource=readFileSync("app/globals.css","utf8");
+for (const rule of [
+  "@media (max-width: 960px)",
+  "@media (max-width: 600px)",
+  "grid-template-columns:repeat(2,minmax(0,1fr))",
+  "grid-template-columns:minmax(0,1fr)",
+  "overflow-wrap:break-word"
+]) {
+  if (!footerCssSource.includes(rule)) {
+    throw new Error("Responsive footer CSS missing required rule: "+rule);
+  }
+}
+console.log("PASS responsive footer breakpoints and overflow guards");
+
 const server = spawn(process.execPath, ["node_modules/next/dist/bin/next", "start", "--port", String(port)], {
   env: { ...process.env, NODE_ENV: "production" },
   stdio: ["ignore", "pipe", "pipe"]
