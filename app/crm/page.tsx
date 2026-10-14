@@ -4,6 +4,7 @@ import {getForgeUser} from "@/lib/forge/security";
 import {isForgeConfigured,db} from "@/lib/forge/db";
 import {CRMShowcase} from "@/app/crm-demo/crm-showcase";
 import {ForgeSignIn} from "./sign-in";
+import {ForgePasswordChange} from "./change-password";
 import "../crm-demo/crm.css";
 import "./auth.css";
 export const metadata:Metadata={
@@ -30,6 +31,7 @@ export default async function CRMPage(){
   unavailable=true;
  }
  if(unavailable)return <div className="forge-login-page"><div className="forge-login-card"><div className="forge-auth-brand">F<span>.</span> <small>FORGE CRM</small></div><h1>Workspace temporarily unavailable</h1><p>The CRM cannot connect to its database. Check the database connection and migration status with your administrator.</p></div></div>;
+ if(user?.mustChangePassword)return <ForgePasswordChange/>;
  if(user)return <CRMShowcase user={user}/>;
  return <ForgeSignIn initial={initial}/>;
 }
