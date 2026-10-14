@@ -1,0 +1,859 @@
+{
+  "version": "2026-10-14",
+  "description": "FORGE fictional construction company sample pack. No real clients, credentials, documents or emails.",
+  "records": [
+    {
+      "key": "tenders-1",
+      "kind": "tenders",
+      "title": "132 kV Substation Civil Works",
+      "client": "Northbank Infrastructure",
+      "owner": "Naledi Mokoena",
+      "status": "In Preparation",
+      "amount": 4250000,
+      "dueDays": 18,
+      "progress": 0,
+      "description": "132 kV foundation pads, cable ducts and stormwater channels; bid due soon"
+    },
+    {
+      "key": "tenders-2",
+      "kind": "tenders",
+      "title": "Mamelodi Road Rehabilitation",
+      "client": "Riverton Engineering",
+      "owner": "Daniel Jacobs",
+      "status": "Submitted",
+      "amount": 2860000,
+      "dueDays": 25,
+      "progress": 0,
+      "description": "Road reconstruction, drainage and pavement rehabilitation; awaiting award"
+    },
+    {
+      "key": "tenders-3",
+      "kind": "tenders",
+      "title": "Solar Plant Equipment Yard",
+      "client": "Helios Renewables",
+      "owner": "Karabo Dlamini",
+      "status": "Awarded",
+      "amount": 1680000,
+      "dueDays": -9,
+      "progress": 0,
+      "description": "Civil siteworks including transformer bases and compacted hardstand"
+    },
+    {
+      "key": "tenders-4",
+      "kind": "tenders",
+      "title": "Warehouse Platform and Foundations",
+      "client": "Cedar Industrial Group",
+      "owner": "Naledi Mokoena",
+      "status": "Qualification",
+      "amount": 3180000,
+      "dueDays": 36,
+      "progress": 0,
+      "description": "Bulk earthworks, precast bases and warehouse slab foundation"
+    },
+    {
+      "key": "tenders-5",
+      "kind": "tenders",
+      "title": "Reservoir and Waterline Upgrade",
+      "client": "Umoya Water Projects",
+      "owner": "Daniel Jacobs",
+      "status": "New",
+      "amount": 5780000,
+      "dueDays": 47,
+      "progress": 0,
+      "description": "Bulk water mains, valves, earthworks and civil construction"
+    },
+    {
+      "key": "tenders-6",
+      "kind": "tenders",
+      "title": "Regional Bridge Rehabilitation",
+      "client": "Thaba Civil Partners",
+      "owner": "Karabo Dlamini",
+      "status": "In Preparation",
+      "amount": 2220000,
+      "dueDays": 14,
+      "progress": 0,
+      "description": "Repair concrete deck, bridge bearings and safety barriers"
+    },
+    {
+      "key": "tenders-7",
+      "kind": "tenders",
+      "title": "Industrial Apron Resurfacing",
+      "client": "Cedar Industrial Group",
+      "owner": "Naledi Mokoena",
+      "status": "Declined",
+      "amount": 780000,
+      "dueDays": -12,
+      "progress": 0,
+      "description": "Apron resurfacing package declined due to resource availability"
+    },
+    {
+      "key": "tenders-8",
+      "kind": "tenders",
+      "title": "Municipal Civil Maintenance Framework",
+      "client": "Riverton Engineering",
+      "owner": "Daniel Jacobs",
+      "status": "Submitted",
+      "amount": 950000,
+      "dueDays": 10,
+      "progress": 0,
+      "description": "Minor works maintenance tender across multiple municipality sites"
+    },
+    {
+      "key": "quotes-1",
+      "kind": "quotes",
+      "title": "Transformer Bay Cable Trenching",
+      "client": "Northbank Infrastructure",
+      "owner": "Karabo Dlamini",
+      "status": "Under Review",
+      "amount": 0,
+      "dueDays": 13,
+      "progress": 0,
+      "description": "Measured trench, concrete encasement and spoil disposal"
+    },
+    {
+      "key": "quotes-2",
+      "kind": "quotes",
+      "title": "Heavy Vehicle Hardstand",
+      "client": "Cedar Industrial Group",
+      "owner": "Daniel Jacobs",
+      "status": "Sent",
+      "amount": 0,
+      "dueDays": 20,
+      "progress": 0,
+      "description": "G5 layerworks, slab paving and compaction"
+    },
+    {
+      "key": "quotes-3",
+      "kind": "quotes",
+      "title": "Stormwater Drainage Variation",
+      "client": "Umoya Water Projects",
+      "owner": "Naledi Mokoena",
+      "status": "Draft",
+      "amount": 0,
+      "dueDays": 18,
+      "progress": 0,
+      "description": "Drainage reroute and new inspection chambers"
+    },
+    {
+      "key": "quotes-4",
+      "kind": "quotes",
+      "title": "Concrete Slab Extension",
+      "client": "Helios Renewables",
+      "owner": "Karabo Dlamini",
+      "status": "Approved",
+      "amount": 0,
+      "dueDays": 28,
+      "progress": 0,
+      "description": "Rebar, formwork and concrete slab extension"
+    },
+    {
+      "key": "quotes-5",
+      "kind": "quotes",
+      "title": "Bulk Earthworks Allowance",
+      "client": "Thaba Civil Partners",
+      "owner": "Daniel Jacobs",
+      "status": "Sent",
+      "amount": 0,
+      "dueDays": 34,
+      "progress": 0,
+      "description": "Imported fill and compaction estimate"
+    },
+    {
+      "key": "quotes-6",
+      "kind": "quotes",
+      "title": "Security Fencing Supply",
+      "client": "Northbank Infrastructure",
+      "owner": "Naledi Mokoena",
+      "status": "Rejected",
+      "amount": 0,
+      "dueDays": -3,
+      "progress": 0,
+      "description": "Temporary worksite fencing estimate"
+    },
+    {
+      "key": "projects-1",
+      "kind": "projects",
+      "title": "Solar Plant Equipment Yard",
+      "client": "Helios Renewables",
+      "owner": "Karabo Dlamini",
+      "status": "Active",
+      "amount": 1680000,
+      "dueDays": 65,
+      "progress": 50,
+      "description": "Site mobilised; transformers pads and hardstand underway",
+      "sourceKey": "tenders-3"
+    },
+    {
+      "key": "projects-2",
+      "kind": "projects",
+      "title": "West Ridge Substation Upgrade",
+      "client": "Northbank Infrastructure",
+      "owner": "Naledi Mokoena",
+      "status": "Active",
+      "amount": 4720000,
+      "dueDays": 72,
+      "progress": 60,
+      "description": "132 kV civil construction works and cable trench rehabilitation"
+    },
+    {
+      "key": "projects-3",
+      "kind": "projects",
+      "title": "Southpoint Industrial Civils",
+      "client": "Cedar Industrial Group",
+      "owner": "Daniel Jacobs",
+      "status": "At Risk",
+      "amount": 2980000,
+      "dueDays": 34,
+      "progress": 25,
+      "description": "Drainage revision awaiting engineer approval"
+    },
+    {
+      "key": "projects-4",
+      "kind": "projects",
+      "title": "Mandla Bridge Rehabilitation",
+      "client": "Thaba Civil Partners",
+      "owner": "Karabo Dlamini",
+      "status": "Active",
+      "amount": 1850000,
+      "dueDays": 93,
+      "progress": 30,
+      "description": "Structural bridge refurbishment and bearing replacements"
+    },
+    {
+      "key": "projects-5",
+      "kind": "projects",
+      "title": "City Square Office Park Works",
+      "client": "Riverton Engineering",
+      "owner": "Naledi Mokoena",
+      "status": "Planning",
+      "amount": 970000,
+      "dueDays": 101,
+      "progress": 0,
+      "description": "Project kickoff, construction planning and subcontractor onboarding"
+    },
+    {
+      "key": "projects-6",
+      "kind": "projects",
+      "title": "Northern Estate Earthworks",
+      "client": "Umoya Water Projects",
+      "owner": "Daniel Jacobs",
+      "status": "Completed",
+      "amount": 810000,
+      "dueDays": -35,
+      "progress": 100,
+      "description": "Bulk earthworks closeout, final inspection and site handover"
+    },
+    {
+      "key": "clients-1",
+      "kind": "clients",
+      "title": "Lerato Molefe",
+      "client": "Northbank Infrastructure",
+      "owner": "Naledi Mokoena",
+      "status": "Active",
+      "amount": 0,
+      "dueDays": 8,
+      "progress": 0,
+      "description": "Procurement director; fictional lerato@example.com"
+    },
+    {
+      "key": "clients-2",
+      "kind": "clients",
+      "title": "Tshepo Ndlovu",
+      "client": "Helios Renewables",
+      "owner": "Karabo Dlamini",
+      "status": "Active",
+      "amount": 0,
+      "dueDays": 4,
+      "progress": 0,
+      "description": "Engineering manager; fictional tshepo@example.com"
+    },
+    {
+      "key": "clients-3",
+      "kind": "clients",
+      "title": "Sipho Dube",
+      "client": "Riverton Engineering",
+      "owner": "Daniel Jacobs",
+      "status": "Partner",
+      "amount": 0,
+      "dueDays": 12,
+      "progress": 0,
+      "description": "Project engineer; fictional sipho@example.com"
+    },
+    {
+      "key": "clients-4",
+      "kind": "clients",
+      "title": "Amira Naidoo",
+      "client": "Cedar Industrial Group",
+      "owner": "Naledi Mokoena",
+      "status": "Prospect",
+      "amount": 0,
+      "dueDays": 18,
+      "progress": 0,
+      "description": "Facilities lead; fictional amira@example.com"
+    },
+    {
+      "key": "clients-5",
+      "kind": "clients",
+      "title": "Thabo Moagi",
+      "client": "Thaba Civil Partners",
+      "owner": "Karabo Dlamini",
+      "status": "Active",
+      "amount": 0,
+      "dueDays": 15,
+      "progress": 0,
+      "description": "Commercial manager; fictional thabo@example.com"
+    },
+    {
+      "key": "clients-6",
+      "kind": "clients",
+      "title": "Nomsa Mahlangu",
+      "client": "Umoya Water Projects",
+      "owner": "Daniel Jacobs",
+      "status": "Active",
+      "amount": 0,
+      "dueDays": 7,
+      "progress": 0,
+      "description": "Contracts manager; fictional nomsa@example.com"
+    },
+    {
+      "key": "tasks-1",
+      "kind": "tasks",
+      "title": "Answer tender clarifications",
+      "client": "132 kV Substation Civil Works",
+      "owner": "Naledi Mokoena",
+      "status": "In Progress",
+      "amount": 0,
+      "dueDays": 2,
+      "progress": 0,
+      "description": "Confirm equipment duct specifications and submit pricing clarifications"
+    },
+    {
+      "key": "tasks-2",
+      "kind": "tasks",
+      "title": "Schedule yard construction kickoff",
+      "client": "Solar Plant Equipment Yard",
+      "owner": "Karabo Dlamini",
+      "status": "To Do",
+      "amount": 0,
+      "dueDays": 5,
+      "progress": 0,
+      "description": "Invite SHEQ, operations and commercial team to mobilization meeting"
+    },
+    {
+      "key": "tasks-3",
+      "kind": "tasks",
+      "title": "Resolve drainage drawing",
+      "client": "Southpoint Industrial Civils",
+      "owner": "Daniel Jacobs",
+      "status": "Blocked",
+      "amount": 0,
+      "dueDays": -2,
+      "progress": 0,
+      "description": "Request engineer approval for revised stormwater works"
+    },
+    {
+      "key": "tasks-4",
+      "kind": "tasks",
+      "title": "Review cable trench unit rates",
+      "client": "Transformer Bay Cable Trenching",
+      "owner": "Naledi Mokoena",
+      "status": "In Progress",
+      "amount": 0,
+      "dueDays": 3,
+      "progress": 0,
+      "description": "Approve QS rate breakdown and material costs"
+    },
+    {
+      "key": "tasks-5",
+      "kind": "tasks",
+      "title": "Approve site-specific safety plan",
+      "client": "West Ridge Substation Upgrade",
+      "owner": "Karabo Dlamini",
+      "status": "To Do",
+      "amount": 0,
+      "dueDays": 6,
+      "progress": 0,
+      "description": "Review safety file before foundation concrete"
+    },
+    {
+      "key": "tasks-6",
+      "kind": "tasks",
+      "title": "Request subcontractor prices",
+      "client": "Mandla Bridge Rehabilitation",
+      "owner": "Daniel Jacobs",
+      "status": "To Do",
+      "amount": 0,
+      "dueDays": 14,
+      "progress": 0,
+      "description": "Obtain specialist bearing replacement quotation"
+    },
+    {
+      "key": "tasks-7",
+      "kind": "tasks",
+      "title": "Follow up road rehabilitation RFQ",
+      "client": "Mamelodi Road Rehabilitation",
+      "owner": "Naledi Mokoena",
+      "status": "In Progress",
+      "amount": 0,
+      "dueDays": 1,
+      "progress": 0,
+      "description": "Call employer's representative for evaluation feedback"
+    },
+    {
+      "key": "tasks-8",
+      "kind": "tasks",
+      "title": "Complete project closeout pack",
+      "client": "Northern Estate Earthworks",
+      "owner": "Karabo Dlamini",
+      "status": "Done",
+      "amount": 0,
+      "dueDays": -12,
+      "progress": 0,
+      "description": "File handover forms and completion certificates"
+    },
+    {
+      "key": "documents-1",
+      "kind": "documents",
+      "title": "Tender Submission Compliance Register",
+      "client": "132 kV Substation Civil Works",
+      "owner": "Naledi Mokoena",
+      "status": "In Review",
+      "amount": 0,
+      "dueDays": 11,
+      "progress": 0,
+      "description": "Metadata-only sample; no PDF attached"
+    },
+    {
+      "key": "documents-2",
+      "kind": "documents",
+      "title": "Site Safety File Register",
+      "client": "West Ridge Substation Upgrade",
+      "owner": "Daniel Jacobs",
+      "status": "Approved",
+      "amount": 0,
+      "dueDays": 23,
+      "progress": 0,
+      "description": "Metadata-only sample, not a real safety certificate"
+    },
+    {
+      "key": "documents-3",
+      "kind": "documents",
+      "title": "Earthworks Method Statement",
+      "client": "Southpoint Industrial Civils",
+      "owner": "Karabo Dlamini",
+      "status": "Requested",
+      "amount": 0,
+      "dueDays": 5,
+      "progress": 0,
+      "description": "Awaiting site excavation and backfill procedure"
+    },
+    {
+      "key": "documents-4",
+      "kind": "documents",
+      "title": "Insurance Certificate Review",
+      "client": "Company Compliance",
+      "owner": "Naledi Mokoena",
+      "status": "Expired",
+      "amount": 0,
+      "dueDays": -8,
+      "progress": 0,
+      "description": "Fictional expired insurance metadata example"
+    },
+    {
+      "key": "documents-5",
+      "kind": "documents",
+      "title": "BOQ Approval Checklist",
+      "client": "Transformer Bay Cable Trenching",
+      "owner": "Daniel Jacobs",
+      "status": "In Review",
+      "amount": 0,
+      "dueDays": 9,
+      "progress": 0,
+      "description": "Quotation checking workflow example"
+    },
+    {
+      "key": "documents-6",
+      "kind": "documents",
+      "title": "Concrete Quality Checklist",
+      "client": "Mandla Bridge Rehabilitation",
+      "owner": "Karabo Dlamini",
+      "status": "Approved",
+      "amount": 0,
+      "dueDays": 18,
+      "progress": 0,
+      "description": "Quality inspection register; no actual file attached"
+    }
+  ],
+  "requirements": [
+    [
+      "tenders-1",
+      "Signed bid returnables",
+      true
+    ],
+    [
+      "tenders-1",
+      "Site attendance certificate",
+      true
+    ],
+    [
+      "tenders-1",
+      "Construction method statement",
+      false
+    ],
+    [
+      "tenders-1",
+      "Pricing approval",
+      false
+    ],
+    [
+      "tenders-1",
+      "CSD compliance",
+      false
+    ],
+    [
+      "tenders-2",
+      "Priced tender forms",
+      true
+    ],
+    [
+      "tenders-2",
+      "Traffic management plan",
+      true
+    ],
+    [
+      "tenders-3",
+      "Signed letter of award",
+      true
+    ],
+    [
+      "tenders-3",
+      "Approved safety plan",
+      false
+    ],
+    [
+      "tenders-4",
+      "Geotechnical study",
+      false
+    ],
+    [
+      "tenders-5",
+      "Waterline design brief",
+      false
+    ],
+    [
+      "tenders-6",
+      "Bridge condition report",
+      true
+    ],
+    [
+      "tenders-6",
+      "Repair method statement",
+      false
+    ],
+    [
+      "tenders-8",
+      "Company registrations",
+      true
+    ]
+  ],
+  "lines": [
+    [
+      "quotes-1",
+      "Trench excavation",
+      "m³",
+      125,
+      780
+    ],
+    [
+      "quotes-1",
+      "Selected bedding material",
+      "m³",
+      65,
+      480
+    ],
+    [
+      "quotes-1",
+      "Concrete cable encasement",
+      "m³",
+      34,
+      4250
+    ],
+    [
+      "quotes-1",
+      "PVC cable sleeves",
+      "m",
+      250,
+      340
+    ],
+    [
+      "quotes-2",
+      "Topsoil stripping",
+      "m²",
+      880,
+      80
+    ],
+    [
+      "quotes-2",
+      "Compacted G5 material",
+      "m³",
+      315,
+      780
+    ],
+    [
+      "quotes-2",
+      "Concrete paving slab",
+      "m²",
+      880,
+      890
+    ],
+    [
+      "quotes-3",
+      "Stormwater excavation",
+      "m³",
+      145,
+      510
+    ],
+    [
+      "quotes-3",
+      "450mm reinforced concrete pipe",
+      "m",
+      110,
+      1350
+    ],
+    [
+      "quotes-3",
+      "Catchpit construction",
+      "item",
+      4,
+      8750
+    ],
+    [
+      "quotes-4",
+      "Formwork and shuttering",
+      "m²",
+      220,
+      330
+    ],
+    [
+      "quotes-4",
+      "Structural concrete",
+      "m³",
+      45,
+      3800
+    ],
+    [
+      "quotes-4",
+      "Rebar installation",
+      "t",
+      6,
+      18900
+    ],
+    [
+      "quotes-5",
+      "Cut-to-fill excavation",
+      "m³",
+      1800,
+      130
+    ],
+    [
+      "quotes-5",
+      "Imported compacted fill",
+      "m³",
+      1250,
+      240
+    ],
+    [
+      "quotes-6",
+      "Temporary security fencing",
+      "m",
+      270,
+      490
+    ],
+    [
+      "quotes-6",
+      "Site gate installation",
+      "item",
+      2,
+      9800
+    ]
+  ],
+  "milestones": [
+    [
+      "projects-1",
+      "Site establishment",
+      -16,
+      true
+    ],
+    [
+      "projects-1",
+      "Equipment foundation excavation",
+      -4,
+      true
+    ],
+    [
+      "projects-1",
+      "Concrete foundation pours",
+      12,
+      false
+    ],
+    [
+      "projects-1",
+      "Drainage and hardstand",
+      36,
+      false
+    ],
+    [
+      "projects-2",
+      "Design briefing",
+      -36,
+      true
+    ],
+    [
+      "projects-2",
+      "Bulk earthworks",
+      -19,
+      true
+    ],
+    [
+      "projects-2",
+      "Foundation concrete pour",
+      -1,
+      true
+    ],
+    [
+      "projects-2",
+      "Cable duct installation",
+      23,
+      false
+    ],
+    [
+      "projects-2",
+      "Testing and handover",
+      72,
+      false
+    ],
+    [
+      "projects-3",
+      "Site establishment",
+      -25,
+      true
+    ],
+    [
+      "projects-3",
+      "Drainage IFC drawing approval",
+      8,
+      false
+    ],
+    [
+      "projects-3",
+      "Stormwater installation",
+      27,
+      false
+    ],
+    [
+      "projects-4",
+      "Condition survey",
+      -20,
+      true
+    ],
+    [
+      "projects-4",
+      "Bearing replacement",
+      25,
+      false
+    ],
+    [
+      "projects-4",
+      "Final quality inspection",
+      92,
+      false
+    ],
+    [
+      "projects-5",
+      "Construction kickoff",
+      8,
+      false
+    ],
+    [
+      "projects-5",
+      "Site possession",
+      39,
+      false
+    ],
+    [
+      "projects-6",
+      "Bulk earthworks completed",
+      -70,
+      true
+    ],
+    [
+      "projects-6",
+      "Final inspections",
+      -43,
+      true
+    ],
+    [
+      "projects-6",
+      "Site handover",
+      -35,
+      true
+    ]
+  ],
+  "activities": [
+    [
+      "tenders-1",
+      "note",
+      "Commercial team received employer clarification request."
+    ],
+    [
+      "tenders-1",
+      "note",
+      "Site briefing completed; outstanding bid returnables noted."
+    ],
+    [
+      "tenders-2",
+      "status",
+      "Tender submitted to fictional procurement team."
+    ],
+    [
+      "tenders-3",
+      "handover",
+      "Awarded contract handed to operations delivery team."
+    ],
+    [
+      "projects-1",
+      "note",
+      "Site establishment and first earthworks inspection completed."
+    ],
+    [
+      "projects-2",
+      "note",
+      "Transformer base foundation inspection passed."
+    ],
+    [
+      "projects-3",
+      "note",
+      "Drainage drawings escalated for engineer approval."
+    ],
+    [
+      "projects-4",
+      "note",
+      "Specialist repair subcontractor pricing requested."
+    ],
+    [
+      "quotes-1",
+      "quote",
+      "QS drafted the cable trench BOQ for internal review."
+    ],
+    [
+      "quotes-2",
+      "quote",
+      "Commercial estimate sent for client consideration."
+    ],
+    [
+      "tasks-3",
+      "note",
+      "Awaiting revised issue-for-construction documentation."
+    ]
+  ]
+}
