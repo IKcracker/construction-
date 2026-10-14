@@ -51,9 +51,9 @@ async function main() {
     const html = await result.text();
     if (!result.ok) throw new Error(`Route ${route} returned HTTP ${result.status}`);
     // Page hero headings should never expose escaped newline markers to visitors.
-    const heading=html.match(/<h1[^>]*id="page-heading"[^>]*>([\\s\\S]*?)<\\/h1>/)?.[1];
-    if (heading && heading.includes("\\\\n")) {
-      throw new Error(`Page hero contains literal \\\\n text on ${route}`);
+    const heading=html.split('id="page-heading"')[1]?.split("</h1>")[0];
+    if (heading && heading.includes("\\n")) {
+      throw new Error(`Page hero contains literal escaped newline text on ${route}`);
     }
     const links = html.match(/<link\b[^>]*\brel="stylesheet"[^>]*>/g) || [];
     const hrefs = links.map(link => link.match(/\bhref="([^"]+)"/)?.[1]).filter(Boolean);
