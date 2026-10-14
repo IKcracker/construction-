@@ -79,6 +79,12 @@ async function main() {
     cssUrl ||= hrefs.find(href => href.includes(".css"));
     console.log(`PASS page ${route}: HTTP ${result.status}, ${hrefs.length} stylesheet link(s)`);
   }
+  // A public visitor must never be able to access organization records or staff lists.
+  for (const privatePath of ["/api/forge/records","/api/forge/users","/api/forge/me"]) {
+    const response=await fetch(origin+privatePath);
+    if(response.status!==401)throw new Error(`Unprotected CRM endpoint ${privatePath}: HTTP ${response.status}`);
+    console.log(`PASS unauthorized CRM API ${privatePath}: HTTP 401`);
+  }
   if (!cssUrl) throw new Error("No CSS URL found in generated HTML");
   const cssResponse = await fetch(new URL(cssUrl, origin));
   if (!cssResponse.ok) throw new Error(`Stylesheet returned HTTP ${cssResponse.status}: ${cssUrl}`);
