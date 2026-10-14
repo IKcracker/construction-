@@ -7,6 +7,38 @@ A dedicated Neon PostgreSQL project named **forge-construction-crm**, database *
 
 Schema: `db/forge-schema.sql` — organization, staff, sessions, records, document attachments, audit events and login throttling. The schema has been applied to the dedicated Neon project.
 
+## Fictional FORGE sample dataset
+
+FORGE includes a **40-record fictional construction sample pack**, with itemised quotation pricing, tender compliance requirements, site delivery milestones and activity history. All entries are labelled `SAMPLE` and the data is isolated to the selected organization.
+
+**Before loading:** run `npm run db:migrate` to apply migration `0004_sample_workspace_registry.sql`. Create and sign in to a company workspace with an administrator account. No sample users or passwords are created.
+
+### From the CRM
+
+As a workspace administrator, open `/crm`, choose **Sample data** in the header, review the record counts, enter `LOAD SAMPLE DATA`, and confirm. This option is blocked if the workspace already contains real records. Use a separate organization for clean client walkthroughs.
+
+### From the CLI
+
+```powershell
+npm run db:seed:validate
+npm run db:seed -- --email admin@yourcompany.co.za --dry-run
+npm run db:seed -- --email admin@yourcompany.co.za --confirm
+```
+
+The command selects an **existing administrator** and installs sample records only into that administrator’s organization. The `--dry-run` checks the target without writing. Nothing changes without `--confirm`. To deliberately mix sample and real records in a workspace, add `--allow-mixed` **together with** `--confirm`; a separate workspace is strongly preferred.
+
+The install runs in a transaction, records the completed pack in `crm_seed_installs`, and cannot load twice. It never deletes or overwrites live business records. Documents are sample **metadata only**, not real files; no emails are sent.
+
+### Contents
+
+- 8 tenders/RFQs, including an awarded example linked to a project
+- 6 itemised quotations with calculated totals
+- 6 projects with realistic progress and milestones
+- 6 company contacts
+- 8 follow-up tasks and priorities
+- 6 compliance/document-register records
+- 14 tender requirements, 17 quote BOQ lines, 20 delivery milestones, 11 activity updates
+
 ## Database CLI commands
 
 The project uses the `postgres` client and versioned SQL migrations, **not Prisma**.
