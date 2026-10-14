@@ -1,0 +1,73 @@
+/* FORGE full page record workspace — isolated component styles */
+.f2-record-page{width:100%;min-width:0}
+.f2-crumb{display:flex;align-items:center;gap:8px;font-size:11px;color:#96a4ad;margin-bottom:24px}
+.f2-crumb>button{background:transparent;border:0;display:flex;align-items:center;gap:8px;color:#5d7986;font-size:11px;font-weight:800}
+.f2-flip{transform:rotate(180deg)}
+.f2-record-heading{margin-bottom:27px}
+.f2-record-heading h1{overflow-wrap:anywhere}
+.f2-sample-tag{font-size:9px;background:#fbede0;color:#b77955;border-radius:5px;padding:4px 7px;font-weight:880;margin-left:12px;white-space:nowrap}
+.f2-editor{max-width:1030px}
+.f2-editor>.f2-panel{padding-bottom:24px}
+.f2-form-grid{padding:25px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.f2-field{display:grid;gap:9px;min-width:0}
+.f2-field>span{font-size:11px;font-weight:800;color:#48606b}
+.f2-field-wide{grid-column:1/-1}
+.f2-field :is(input,select,textarea){border:1px solid #dbe4e6;background:white;color:#2c4350;border-radius:7px;min-height:43px;padding:10px 12px;font-size:12px;font-weight:500;width:100%;outline:0;resize:vertical}
+.f2-field :is(input,select,textarea):focus{border-color:#c58262;box-shadow:0 0 0 3px #ce795b14}
+.f2-field :is(input,select,textarea)::placeholder{color:#a1afb7}
+.f2-field textarea{line-height:1.7}
+.f2-editor-footer{display:flex;justify-content:space-between;align-items:center;gap:15px;padding-top:20px}
+.f2-editor-footer>span{display:flex;align-items:center;gap:7px;color:#8a9da5;font-size:11px}
+.f2-editor-footer>div{display:flex;gap:9px;align-items:center}
+.f2-record-grid{display:grid;grid-template-columns:minmax(0,1fr) 270px;align-items:start;gap:21px}
+.f2-record-main{min-width:0}
+.f2-tabs{background:#fff;display:flex;align-items:center;gap:20px;padding:0 22px;border:1px solid #e1e9ec;border-radius:10px 10px 0 0;overflow-x:auto}
+.f2-tabs button{background:#fff;color:#8b9aa3;border:0;border-bottom:2px solid transparent;padding:17px 3px;min-height:51px;display:flex;align-items:center;gap:8px;font-weight:790;font-size:11px;white-space:nowrap}
+.f2-tabs button.active{color:#b46a48;border-color:#bd734f}
+.f2-tabs button b{background:#edf1f2;color:#81959f;font-size:9px;padding:3px 6px;border-radius:5px}
+.f2-tab-stack{display:grid;gap:17px;margin-top:17px}
+.f2-facts{padding:20px 25px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 27px}
+.f2-facts>div{border-bottom:1px solid #edf1f2;padding:14px 0;min-width:0}
+.f2-facts>div>span{font-size:10px;color:#92a2aa;display:block;margin-bottom:7px}
+.f2-facts>div>strong{font-weight:770;font-size:12px;color:#334c58;line-height:1.55;overflow-wrap:anywhere}
+.f2-facts>div>.f2-value{font-size:23px;letter-spacing:-.035em}
+.f2-progress{padding:0 25px 24px}
+.f2-progress>div:first-child{display:flex;justify-content:space-between;font-size:10px;color:#8a9ba3;margin-bottom:9px}
+.f2-progress>div:first-child strong{color:#527267}
+.f2-description{font-size:12px;color:#627b86;white-space:pre-wrap;line-height:1.85;padding:23px 25px;overflow-wrap:anywhere}
+.f2-record-aside{min-width:0;display:grid;gap:15px}
+.f2-aside-panel{padding:21px}
+.f2-aside-panel h3{font-size:14px;color:#344f5c;margin:7px 0 16px}
+.f2-status-lg{padding:9px 11px}
+.f2-aside-panel .f2-field{margin-top:23px}
+.f2-aside-divider{height:1px;background:#e6ecee;margin:21px 0 16px}
+.f2-meta-label{font-size:9px;font-weight:860;letter-spacing:.09em;color:#9aacb4;display:block;margin-bottom:7px}
+.f2-record-ref{color:#546a76;font-size:11px;font-family:var(--font-geist-mono),monospace;overflow-wrap:anywhere}
+.f2-side-link{background:white;border:0;border-bottom:1px solid #edf1f2;display:flex;align-items:center;gap:10px;width:100%;padding:13px 0;color:#627c86;font-size:11px;font-weight:720;text-align:left}
+.f2-side-link:last-child{border-bottom:0}
+.f2-side-link>svg:last-child{margin-left:auto;color:#a9b5bb}
+.f2-side-link:hover{color:#c17451}
+.f2-side-link.f2-danger-text{color:#ba6557}
+.f2-ops-panel{margin-top:17px;padding:24px}
+.f2-ops-panel .forge-operations{border:0;margin:0;padding:0;box-shadow:none}
+.f2-ops-panel .forge-operations-head h3{font-size:16px}
+.f2-muted-count{font-size:11px;color:#8ea0a7;background:#eef2f3;border-radius:5px;padding:3px 7px;vertical-align:middle}
+.f2-file-list{padding:0 23px}
+.f2-file{display:flex;align-items:center;gap:12px;border-bottom:1px solid #edf1f2;padding:17px 0}
+.f2-file-symbol{height:39px;width:39px;border-radius:9px;background:#eaf2f2;color:#638e97;display:grid;place-items:center;flex:none}
+.f2-file>div{flex:1;min-width:0}
+.f2-file strong{display:block;font-size:12px;color:#38515c;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.f2-file small{display:block;font-size:10px;color:#96a5ae;margin-top:6px}
+.f2-file>a,.f2-file>button{display:grid;place-items:center;border:1px solid #e5ebed;background:#fff;color:#718a94;border-radius:7px;width:35px;height:35px}
+.f2-file>button{color:#bd6755}
+.f2-upload{padding:20px 23px;display:flex;align-items:end;gap:12px;flex-wrap:wrap}
+.f2-upload>label{display:grid;gap:8px;font-size:11px;font-weight:760;color:#596f7a;flex:1 1 180px}
+.f2-upload input{font-size:11px;color:#60747e}
+.f2-confirm{border:1px solid #edd0c5;background:#fff5f1;padding:14px;border-radius:8px;margin-top:14px}
+.f2-confirm>strong{font-size:12px;color:#8f463a}
+.f2-confirm>p{font-size:10px;color:#906a64;line-height:1.6;margin-top:5px}
+.f2-confirm>div{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-top:13px}
+.f2-confirm .f2-btn{min-height:34px;font-size:10px;padding:0 10px}
+@media(max-width:1190px){.f2-record-grid{grid-template-columns:minmax(0,1fr) 235px}.f2-aside-panel{padding:17px}.f2-facts{padding:18px}}
+@media(max-width:1040px){.f2-record-grid{grid-template-columns:1fr}.f2-record-aside{grid-template-columns:repeat(2,minmax(0,1fr))}.f2-record-aside .f2-panel{align-self:start}}
+@media(max-width:650px){.f2-record-aside{grid-template-columns:1fr}.f2-form-grid{grid-template-columns:1fr;padding:18px;gap:17px}.f2-field-wide{grid-column:auto}.f2-editor-footer{flex-direction:column;align-items:stretch}.f2-editor-footer>div{justify-content:flex-end}.f2-facts{grid-template-columns:1fr}.f2-tabs{gap:11px;padding:0 13px}.f2-tabs button{font-size:10px}.f2-ops-panel{padding:14px}.f2-record-heading{align-items:stretch}}

@@ -2,7 +2,7 @@ import type {Metadata} from "next";
 import {connection} from "next/server";
 import {getForgeUser} from "@/lib/forge/security";
 import {isForgeConfigured,db} from "@/lib/forge/db";
-import {CRMShowcase} from "@/app/crm-demo/crm-showcase";
+import {ForgeWorkspace} from "./workspace-shell";
 import {ForgeSignIn} from "./sign-in";
 import {ForgePasswordChange} from "./change-password";
 export const metadata:Metadata={
@@ -30,6 +30,6 @@ export default async function CRMPage(){
  }
  if(unavailable)return <div className="forge-login-page"><div className="forge-login-card"><div className="forge-auth-brand">F<span>.</span> <small>FORGE CRM</small></div><h1>Workspace temporarily unavailable</h1><p>The CRM cannot connect to its database. Check the database connection and migration status with your administrator.</p></div></div>;
  if(user?.mustChangePassword)return <ForgePasswordChange/>;
- if(user)return <CRMShowcase user={user}/>;
+ if(user)return <ForgeWorkspace user={user}/>;
  return <ForgeSignIn initial={initial}/>;
 }
