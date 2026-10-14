@@ -6,6 +6,6 @@ import type { ReactNode } from "react";
 
 export function SiteShell({children}:{children:ReactNode}){
  const pathname=usePathname();
- if(pathname.startsWith("/crm-demo")) return <>{children}</>;
+ if(pathname.startsWith("/crm")) return <>{children}</>;
  return <><SiteHeader/>{children}<SiteFooter/></>;
 }
