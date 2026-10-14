@@ -6,7 +6,7 @@ import {db} from "./db";
 const scrypt=promisify(scryptCallback);
 const sessionKey="forge_session";
 export type ForgeRole="admin"|"editor"|"viewer";
-export type ForgeUser={id:string;organizationId:string;organizationName:string;name:string;email:string;role:ForgeRole};
+export type ForgeUser={id:string;organizationId:string;organizationName:string;name:string;email:string;role:ForgeRole;mustChangePassword:boolean};
 export const hashToken=(token:string)=>createHash("sha256").update(token).digest("hex");
 export function secureResponseHeaders(){return {"Cache-Control":"no-store","X-Content-Type-Options":"nosniff"};}
 export function safeSameOrigin(request:Request){
@@ -34,13 +34,13 @@ export async function checkPassword(password:string,hash:string){
 export async function getForgeUser():Promise<ForgeUser|null>{
  const token=(await cookies()).get(sessionKey)?.value;
  if(!token||!/^[0-9a-f]{64}$/.test(token))return null;
- const rows=await db()`SELECT u.id,u.organization_id,u.name,u.email,u.role,o.name AS organization_name
+ const rows=await db()`SELECT u.id,u.organization_id,u.name,u.email,u.role,u.must_change_password,o.name AS organization_name
   FROM crm_sessions s JOIN crm_users u ON u.id=s.user_id
   JOIN crm_organizations o ON o.id=u.organization_id
   WHERE s.token_hash=${hashToken(token)} AND s.expires_at>now() AND u.disabled=false LIMIT 1`;
  if(!rows.length)return null;
  const u=rows[0];
- return {id:u.id,organizationId:u.organization_id,organizationName:u.organization_name,name:u.name,email:u.email,role:u.role};
+ return {id:u.id,organizationId:u.organization_id,organizationName:u.organization_name,name:u.name,email:u.email,role:u.role,mustChangePassword:Boolean(u.must_change_password)};
 }
 export function permitted(user:ForgeUser,action:"read"|"write"|"admin"){
  return action==="read" || (action==="write"&&user.role!=="viewer") || (action==="admin"&&user.role==="admin");
