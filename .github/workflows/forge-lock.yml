@@ -1,0 +1,28 @@
+name: Synchronize FORGE lockfile
+on:
+  push:
+    branches:
+      - feature/forge-production-crm
+    paths:
+      - package.json
+permissions:
+  contents: write
+jobs:
+  lockfile:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          ref: feature/forge-production-crm
+          persist-credentials: true
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: "22"
+      - run: npm install --package-lock-only --ignore-scripts
+      - name: Commit lockfile update
+        run: |
+          if ! git diff --quiet package-lock.json; then
+            git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" add package-lock.json
+            git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" commit -m "chore: synchronize PostgreSQL dependency lockfile"
+            git push origin HEAD:feature/forge-production-crm
+          fi
