@@ -9,7 +9,7 @@ const routes = [
   "/projects", "/projects/commercial-development", "/process",
   "/materials", "/contact"
 ];
-const requiredSelectors = [".hero", ".header", ".service-card", ".page-hero", ".contact-form"];
+const requiredSelectors = [".hero", ".header", ".service-card", ".page-hero", ".contact-form", ".footer .footer-grid"];
 const server = spawn(process.execPath, ["node_modules/next/dist/bin/next", "start", "--port", String(port)], {
   env: { ...process.env, NODE_ENV: "production" },
   stdio: ["ignore", "pipe", "pipe"]
@@ -47,6 +47,10 @@ async function main() {
   const css = await cssResponse.text();
   for (const selector of requiredSelectors) {
     if (!css.includes(selector)) throw new Error(`Required selector ${selector} missing from generated CSS`);
+  }
+  // History should not change navigation link colors; link overrides must ship in compiled CSS.
+  if (!css.includes(":visited") || !css.includes("#ecf3ef")) {
+    throw new Error("Stable visited-link styling or accessible footer-link colour is missing from CSS");
   }
   if (css.length < 8000) throw new Error(`Generated CSS unexpectedly small (${css.length} bytes)`);
   console.log(`PASS stylesheet ${cssUrl} (HTTP ${cssResponse.status}; ${css.length} bytes; ${requiredSelectors.length} selectors)`);
