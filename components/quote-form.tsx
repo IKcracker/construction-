@@ -15,7 +15,7 @@ export function QuoteForm(){
   window.location.href="mailto:?subject="+subject+"&body="+body;
  }
  return <form className="contact-form" onSubmit={submit}>
- <div className="form-intro"><span className="overline">PROJECT ENQUIRY</span><h3>Tell us about your project.</h3><p>Use the fields below to preview how an enquiry could be captured on a construction company's website.</p></div>
+ <div className="form-intro"><span className="overline">PROJECT ENQUIRY</span><h3>Tell us about your project.</h3><p>Use the fields below to preview how an enquiry could be captured on a construction company&apos;s website.</p></div>
  <div className="form-two">
  <label>Full name *<input name="name" autoComplete="name" required maxLength={100} placeholder="Your full name"/></label>
  <label>Email address *<input name="email" type="email" autoComplete="email" required maxLength={150} placeholder="you@example.com"/></label>
