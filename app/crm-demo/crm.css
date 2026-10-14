@@ -451,3 +451,39 @@ body:has(.forge-app) .forge-app{font-family:var(--font-geist-sans),Arial,sans-se
 .forge-quick-search>button{border:0;background:none;color:#8294a1;display:grid;place-items:center}
 .forge-quick-search:focus-within{border-color:#66a7a2}
 @media(max-width:640px){.forge-quick-search{max-width:none;margin-bottom:16px}.forge-quick-search>span{display:none}.forge-quick-search>input{font-size:11px}}
+
+/* FORGE production CRM controls */
+.forge-loading{min-height:100dvh;display:flex;align-items:center;justify-content:center;gap:15px;font-size:14px;color:#536875;background:#f6f8fa}
+.forge-loading-spin{height:24px;width:24px;border-radius:50%;border:3px solid #dae2e6;border-top-color:#de7443;animation:forge-spin .75s linear infinite}
+@keyframes forge-spin{to{transform:rotate(360deg)}}
+.forge-attachments{border-top:1px solid #e8edf0;margin:25px 0;padding-top:25px}
+.forge-attachments h3{font-size:13px;font-weight:850;display:flex;gap:8px;align-items:center}
+.forge-attachments h3 span{color:#77909b;font-size:11px;background:#eff3f4;padding:3px 7px;border-radius:6px}
+.forge-attachments>p{font-size:11px;color:#8496a0;line-height:1.7;margin:9px 0 15px}
+.forge-attached-file{padding:10px 0;border-bottom:1px solid #edf0f1;display:flex;gap:10px;align-items:center}
+.forge-attached-file>svg{color:#68919b;flex:none}
+.forge-attached-file>div{flex:1;min-width:0}
+.forge-attached-file strong,.forge-attached-file small{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.forge-attached-file strong{font-size:12px;color:#34454e}
+.forge-attached-file small{font-size:10px;color:#91a0a8;margin-top:4px}
+.forge-attached-file>a,.forge-attached-file>button{border:1px solid #e1e7ea;background:white;color:#607f88;border-radius:6px;padding:8px;display:grid;place-items:center}
+.forge-attached-file>button{color:#b76252}
+.forge-attachments>form{margin-top:20px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.forge-attachments>form>input{flex:1 1 170px;min-width:0;font-size:11px}
+.forge-attachments>form>button{min-height:36px}
+.forge-staff-dialog{padding:28px 30px;max-height:90dvh;overflow-y:auto;width:min(540px,100%)}
+.forge-staff-dialog>h2{font-size:26px;font-weight:820;letter-spacing:-.04em;margin:10px 0}
+.forge-staff-dialog>p{font-size:12px;color:#82939c;margin-bottom:22px}
+.forge-staff-list{border:1px solid #e7ecef;border-radius:9px}
+.forge-staff-list>div{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:12px 14px;border-bottom:1px solid #edf0f2}
+.forge-staff-list>div:last-child{border-bottom:0}
+.forge-staff-list .forge-owner>span{display:block;min-width:0}
+.forge-staff-list .forge-owner strong,.forge-staff-list .forge-owner small{display:block}
+.forge-staff-list .forge-owner strong{font-weight:760;font-size:12px}
+.forge-staff-list .forge-owner small{font-size:10px;color:#8b99a1;margin-top:4px;overflow-wrap:anywhere}
+.forge-staff-form{display:grid;gap:13px;margin-top:25px}
+.forge-staff-form h3{font-size:15px;letter-spacing:0}
+.forge-staff-form label{font-size:11px;font-weight:750;color:#506571;display:grid;gap:7px}
+.forge-staff-form input,.forge-staff-form select{border:1px solid #dae2e6;border-radius:7px;min-height:40px;padding:8px 12px;background:white;color:#243842}
+.forge-staff-form>button{justify-self:start;margin-top:4px}
+@media(max-width:600px){.forge-staff-dialog{padding:22px}.forge-attachments>form{align-items:stretch}.forge-attachments>form>button{width:100%}}
