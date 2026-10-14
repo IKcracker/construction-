@@ -4,7 +4,6 @@ import {db} from "@/lib/forge/db";
 import {authorize,fail,json} from "@/lib/forge/response";
 import {audit} from "@/lib/forge/security";
 import {getRecords,isModule,validateInput} from "@/lib/forge/records";
-export const runtime="nodejs";
 export async function GET(request:NextRequest){
  const auth=await authorize(request);
  if("response" in auth)return auth.response;
