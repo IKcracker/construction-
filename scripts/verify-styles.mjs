@@ -71,7 +71,8 @@ async function main() {
         return cssResult.text();
       }));
       const crmCss=styles.join("\n");
-      for(const selector of [".forge-app",".forge-sidebar",".forge-table",".forge-drawer"]) {
+      if (crmCss.length < 15000) throw new Error(`Private CRM stylesheet is unexpectedly small (${crmCss.length} bytes)`);
+      for(const selector of [".forge-app",".forge-sidebar",".forge-table",".forge-drawer",".forge-login-page",".forge-login-card",".forge-auth-brand",".forge-staff-dialog",".forge-attachments"]) {
         if(!crmCss.includes(selector))throw new Error("Missing production CRM styling: "+selector);
       }
       console.log("PASS private CRM sign-in gate and isolated layout");
