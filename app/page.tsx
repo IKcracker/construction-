@@ -1,69 +1,60 @@
-import Image from "next/image";
+"use client";
 
+import { useState, type FormEvent } from "react";
+
+const services = [
+ { n:"01", icon:"▥", title:"Building Construction",desc:"Purpose-built residential, commercial and industrial spaces delivered with precision and care." },
+ { n:"02", icon:"⌁", title:"Civil Engineering",desc:"Roadworks, drainage, earthworks and essential infrastructure for connected communities." },
+ { n:"03", icon:"▤", title:"Construction Materials",desc:"Practical sourcing and coordinated supply of quality materials for demanding construction projects." },
+ { n:"04", icon:"▦", title:"Project Management",desc:"From the first brief to handover, coordinated programmes and clear project communication." },
+ { n:"05", icon:"⌂", title:"Renovations & Upgrades",desc:"Thoughtful refurbishment that gives existing structures and spaces new purpose." },
+ { n:"06", icon:"△", title:"Site Preparation",desc:"Groundworks, site establishment and the critical early stages of a successful build." }
+];
+const projects = [
+ {title:"Commercial Developments",type:"Commercial",image:"https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=85"},
+ {title:"Infrastructure & Earthworks",type:"Civil Works",image:"https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1200&q=85"},
+ {title:"Residential Spaces",type:"Residential",image:"https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=85"},
+ {title:"Site & Structural Works",type:"Civil Works",image:"https://images.unsplash.com/photo-1531835551805-16d864c8d311?auto=format&fit=crop&w=1200&q=85"}
+];
+const questions = [
+ ["What services does this construction concept cover?","Building construction, civil works, project management, materials supply, renovations and site preparation. Actual services would be confirmed with a real business."],
+ ["Can I request a quotation?","This demonstration form generates an email draft in your own email app. It does not submit data to a live business or an unconfigured backend."],
+ ["How would a project begin?","An initial consultation would clarify requirements, location, scope, intended schedule and budget before a formal quotation."],
+ ["Are the projects shown real?","No. All images and portfolio titles are illustrative content used to demonstrate the website layout."]
+];
 export default function Home() {
-  return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
-  );
+ const [menuOpen,setMenuOpen]=useState(false);
+ const [filter,setFilter]=useState("All Projects");
+ const [faq,setFaq]=useState<number|null>(0);
+ const [draftReady,setDraftReady]=useState(false);
+ function submit(e:FormEvent<HTMLFormElement>){
+  e.preventDefault();
+  const data=new FormData(e.currentTarget);
+  const fields=["name","email","phone","service","location","message"];
+  const content=fields.map(k=>k.toUpperCase()+": "+String(data.get(k)||"Not provided")).join("\n");
+  const subject=encodeURIComponent("Concept website enquiry draft");
+  const body=encodeURIComponent("SAMPLE REQUEST — NOT SENT TO A BUSINESS\n\n"+content+"\n\nThis is an unsent demonstration email.");
+  setDraftReady(true);
+  window.location.href="mailto:?subject="+subject+"&body="+body;
+ }
+ return <main>
+  <div className="utility"><div className="wrap utility-inner"><span>BUILT WITH PURPOSE. DELIVERED WITH PRECISION.</span><span>SOUTH AFRICAN CONSTRUCTION CONCEPT</span></div></div>
+  <header className="header"><div className="wrap header-inner"><a href="#home" className="logo" aria-label="STRATA home"><span className="logo-emblem">◢</span><span>STRATA<small>CIVIL & CONSTRUCTION</small></span></a>
+   <button type="button" className="menu-toggle" onClick={()=>setMenuOpen(!menuOpen)} aria-expanded={menuOpen} aria-label="Toggle menu">{menuOpen?"✕":"☰"}</button>
+   <nav aria-label="Main navigation" className={menuOpen?"nav open":"nav"}>{[["Home","home"],["About","about"],["Services","services"],["Projects","projects"],["Our Process","process"],["Contact","contact"]].map(([name,id])=><a href={"#"+id} key={id} onClick={()=>setMenuOpen(false)}>{name}</a>)}</nav>
+   <a className="button primary nav-button" href="#contact">LET&apos;S BUILD <span>↗</span></a>
+  </div></header>
+  <section id="home" className="hero"><div className="hero-photo" role="img" aria-label="Construction site with workers and equipment"/><div className="wrap hero-content"><div className="overline">BUILDING WHAT&apos;S NEXT</div><h1>Built on ambition.<br/>Driven by <em>precision.</em></h1><p>Complete construction solutions for a changing world. From infrastructure and commercial spaces to project delivery and essential materials.</p><div className="hero-actions"><a href="#services" className="button primary">EXPLORE OUR SERVICES <span>↗</span></a><a className="button ghost" href="#projects">VIEW CONCEPT PROJECTS <span>↗</span></a></div></div><div className="hero-foot"><div className="wrap"><span>CONSTRUCTION / CIVIL WORKS / MATERIALS</span><span>SCROLL TO EXPLORE ↓</span></div></div></section>
+  <div className="strap"><div className="wrap strap-inner"><span>CIVIL ENGINEERING</span><b>✳</b><span>BUILDING CONSTRUCTION</span><b>✳</b><span>PROJECT MANAGEMENT</span><b>✳</b><span>MATERIALS SUPPLY</span></div></div>
+  <section id="services" className="section"><div className="wrap"><div className="section-head"><div><span className="overline">WHAT WE DO</span><h2>Solutions for every<br/>stage of the build.</h2></div><p>Practical expertise across the built environment — bringing planning, resources and execution together under one roof.</p></div><div className="service-grid">{services.map(s=><article className="service-card" key={s.n}><div className="card-n">{s.n} / SERVICES <span>↗</span></div><div className="service-icon" aria-hidden="true">{s.icon}</div><h3>{s.title}</h3><p>{s.desc}</p><a href="#contact">DISCUSS A PROJECT <span>↗</span></a></article>)}</div></div></section>
+  <section className="about section" id="about"><div className="wrap about-grid"><div className="about-visual"><div className="about-image" role="img" aria-label="Modern concrete architectural structure"/><div className="orange-note">BUILDING WITH PURPOSE, AT EVERY SCALE. <span>↗</span></div></div><div className="about-text"><span className="overline">WHO WE ARE</span><h2>Solid thinking.<br/>Stronger outcomes.</h2><p>Great construction starts long before work begins on site. It starts with understanding the challenge, asking the right questions and getting the details right.</p><p>From concept to completion, this approach combines practical building expertise with smart coordination — creating a smoother experience at every milestone.</p><div className="features"><span>↗ Quality-led delivery</span><span>↗ Practical solutions</span><span>↗ Transparent communication</span><span>↗ Safety-first planning</span></div><a className="button dark" href="#process">OUR APPROACH <span>↗</span></a></div></div></section>
+  <section id="projects" className="section"><div className="wrap"><div className="section-head"><div><span className="overline">ILLUSTRATIVE PORTFOLIO</span><h2>A vision of what&apos;s<br/>possible.</h2></div><p>Example project categories that show how a modern construction company can showcase its capabilities online.</p></div><div className="filters" aria-label="Project filters">{["All Projects","Civil Works","Commercial","Residential"].map(f=><button key={f} type="button" aria-pressed={filter===f} onClick={()=>setFilter(f)} className={filter===f?"active":""}>{f}</button>)}</div><div className="project-grid">{projects.filter(p=>filter==="All Projects"||p.type===filter).map(p=><article className="project" key={p.title} style={{backgroundImage:'linear-gradient(0deg,rgba(10,20,24,.85),rgba(10,20,24,.05) 70%),url("'+p.image+'")'}}><div className="project-details"><div><span>CONCEPT PROJECT / {p.type.toUpperCase()}</span><h3>{p.title}</h3></div><span className="project-arrow">↗</span></div></article>)}</div><p className="disclaimer">* All project imagery and categories are illustrative and do not claim completed contracts, credentials or real clients.</p></div></section>
+  <section id="process" className="process section"><div className="wrap"><div className="section-head"><div><span className="overline">HOW WE WORK</span><h2>A clearer path from<br/>idea to execution.</h2></div><p>Structured collaboration focused on expectations, accountability and delivery.</p></div><div className="steps">{[["01","Discover","Understand your site, scope, requirements and goals."],["02","Plan","Align resources, milestones, priorities and the proposed approach."],["03","Build","Coordinate execution with quality, safety and communication in focus."],["04","Deliver","Review completed works and coordinate a thoughtful handover."]].map(([n,t,d])=><div className="step" key={n}><strong>{n}</strong><h3>{t}</h3><p>{d}</p></div>)}</div></div></section>
+  <section className="section materials"><div className="wrap material-grid"><div><span className="overline">MATERIALS & SUPPLY</span><h2>The right materials.<br/>At the right time.</h2><p>Supporting construction progress with an organised approach to materials planning and supply coordination.</p><ul><li>Aggregates, sand and stone</li><li>Cement and concrete requirements</li><li>Bricks, blocks and masonry</li><li>Structural and general building supplies</li></ul><a href="#contact" className="button dark">ENQUIRE ABOUT MATERIALS <span>↗</span></a></div><div className="material-image" role="img" aria-label="Construction equipment at an industrial site"/></div></section>
+  <section className="section faq-section"><div className="wrap faq-grid"><div><span className="overline">FREQUENTLY ASKED</span><h2>Good questions.<br/>Clear answers.</h2><p>Useful starting points when planning a construction project.</p></div><div className="faqs">{questions.map(([q,a],i)=><div className="faq" key={q}><button type="button" onClick={()=>setFaq(faq===i?null:i)} aria-expanded={faq===i}>{q}<span>{faq===i?"−":"+"}</span></button>{faq===i&&<p>{a}</p>}</div>)}</div></div></section>
+  <section className="cta"><div className="wrap cta-inner"><div><span className="overline">START YOUR NEXT PROJECT</span><h2>Have a project in mind?<br/>Let&apos;s build a plan.</h2></div><a className="button white" href="#contact">LET&apos;S TALK <span>↗</span></a></div></section>
+  <section className="section contact" id="contact"><div className="wrap contact-grid"><div><span className="overline">GET IN TOUCH</span><h2>Let&apos;s create<br/>something lasting.</h2><p>Tell us about the opportunity. A strong project starts with a clear conversation.</p><div className="contact-info"><b>FOCUS AREAS</b><span>Construction / Civil Works / Materials</span><b>REGION</b><span>South Africa (illustrative)</span><b>DEMO NOTICE</b><span>This is a sample website and does not represent an existing business.</span></div></div><form onSubmit={submit} className="contact-form"><div className="form-two"><label>Full name *<input name="name" required placeholder="Your full name" maxLength={100}/></label><label>Email address *<input name="email" required type="email" placeholder="you@example.com" maxLength={150}/></label><label>Phone number<input name="phone" type="tel" placeholder="Your contact number" maxLength={30}/></label><label>Service required *<select name="service" required defaultValue=""><option value="" disabled>Select a service</option>{services.map(s=><option key={s.n}>{s.title}</option>)}</select></label></div><label>Project location<input name="location" placeholder="Town or region" maxLength={150}/></label><label>Project details *<textarea required name="message" placeholder="Tell us about the project, scope and timing..." maxLength={2000} rows={5}/></label><button type="submit" className="button primary">PREVIEW ENQUIRY EMAIL <span>↗</span></button><p className="form-note" role="status">{draftReady?"Your email app may open with a draft. Nothing was submitted or sent.":"Demo only: the form opens a draft in your email application, with no recipient and no server-side data collection."}</p></form></div></section>
+  <footer className="footer"><div className="wrap"><div className="footer-grid"><div><a href="#home" className="logo"><span className="logo-emblem">◢</span><span>STRATA<small>CIVIL & CONSTRUCTION</small></span></a><p>A fictional construction and civil engineering brand created as a concept for a premium business website.</p></div><div><h4>EXPLORE</h4><a href="#about">About</a><a href="#services">Services</a><a href="#projects">Concept Projects</a><a href="#process">Our Approach</a></div><div><h4>MORE</h4><a href="#contact">Request an Estimate</a><a href="#contact">Contact</a><a href="#home">Back to Top</a></div></div><div className="footer-bottom"><span>© {new Date().getFullYear()} STRATA — fictional concept identity.</span><span>DEMO EXPERIENCE • NOT AN OFFICIAL COMPANY WEBSITE</span></div></div></footer>
+  <div className="demo-tag">CONCEPT WEBSITE · SAMPLE CONTENT</div>
+ </main>;
 }
