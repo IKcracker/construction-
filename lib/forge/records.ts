@@ -5,7 +5,7 @@ import type {ForgeUser} from "./security";
 export function isModule(v:string):v is ModuleKey {
  return Object.prototype.hasOwnProperty.call(config,v);
 }
-export function validateInput(data:unknown,kind:ModuleKey):{data:Omit<CrmRecord,"id">}|{error:string}{
+export function validateInput(data:unknown,kind:ModuleKey):{data:Omit<CrmRecord,"id"|"progress">&{progress:number}}|{error:string}{
  if(!data || typeof data!=="object")return {error:"Invalid request body"};
  const body=data as Record<string,unknown>;
  const title=String(body.title??"").trim().slice(0,160);
