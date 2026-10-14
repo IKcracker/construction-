@@ -2,52 +2,79 @@
 
 import { useEffect, useMemo, useState, type FormEvent } from "react";
 import { Icon, type IconName } from "./crm-icons";
-import { config, dateLabel, firstStore, menu, modules, money, shortMoney, stageClass, type CrmRecord, type CrmStore, type ModuleKey, type ViewKey } from "./crm-data";
+import { config, dateLabel, menu, modules, money, shortMoney, stageClass, type CrmRecord, type CrmStore, type ModuleKey, type ViewKey } from "./crm-data";
+import type {ForgeUser} from "@/lib/forge/security";
 
 const iconName:Record<ViewKey,IconName>={overview:"grid",tenders:"bid",quotes:"receipt",projects:"hardhat",clients:"users",tasks:"check",documents:"folder",insights:"chart"};
-const owners=["Naledi Mokoena","Daniel Jacobs","Karabo Dlamini","Lerato Molefe"];
+type Staff={id:string;name:string;email:string;role:string};
+type Attachment={id:string;filename:string;size_bytes:number;content_type:string;created_at:string;uploaded_by:string};
+const emptyStore=():CrmStore=>({tenders:[],quotes:[],projects:[],clients:[],tasks:[],documents:[]});
 type Dialog={module:ModuleKey;mode:"create"|"view"|"edit";id?:string};
-const sampleMessage="All companies, people, contracts, documents and financial values in this workspace are fictional demonstration data.";
+const workspaceMessage="Secure company workspace. Changes are saved in your organization’s PostgreSQL database.";
 function Pill({status}:{status:string}){return <span className={`forge-pill forge-pill-${stageClass(status)}`}><i/>{status}</span>}
 function shortDate(value:string){return dateLabel(value)}
 function avatar(name:string){return name.split(" ").map(s=>s[0]).slice(0,2).join("").toUpperCase()}
 function formatCsvCell(v:unknown){const s=String(v??"");return '"'+s.replace(/"/g,'""')+'"'}
-function makeDefault(module:ModuleKey):CrmRecord{
- return {id:"",title:"",client:"",owner:owners[0],status:config[module].statuses[0],amount:0,date:"2026-11-15",description:"",...(module==="projects"?{progress:0}:{})};
+function makeDefault(module:ModuleKey,owner:string):CrmRecord{
+ return {id:"",title:"",client:"",owner,status:config[module].statuses[0],amount:0,date:new Date().toISOString().slice(0,10),description:"",...(module==="projects"?{progress:0}:{})};
 }
 
-export function CRMShowcase(){
- const [store,setStore]=useState<CrmStore>(()=>structuredClone(firstStore));
+export function CRMShowcase({user}:{user:ForgeUser}){
+ const [store,setStore]=useState<CrmStore>(()=>emptyStore());
+ const [staff,setStaff]=useState<Staff[]>([]);
+ const [attachments,setAttachments]=useState<Attachment[]>([]);
+ const [uploading,setUploading]=useState(false);
+ const [saving,setSaving]=useState(false);
+ const [newStaff,setNewStaff]=useState({name:"",email:"",password:"",role:"editor"});
+ const [showStaff,setShowStaff]=useState(false);
+ const [staffBusy,setStaffBusy]=useState(false);
+ const owners=useMemo(()=>[...new Set([user.name,...staff.map(x=>x.name)])],[staff,user.name]);
  const [loaded,setLoaded]=useState(false);
  const [active,setActive]=useState<ViewKey>("overview");
  const [query,setQuery]=useState("");
  const [filter,setFilter]=useState("All statuses");
  const [display,setDisplay]=useState<"list"|"board">("list");
  const [drawer,setDrawer]=useState<Dialog|null>(null);
- const [form,setForm]=useState<CrmRecord>(()=>makeDefault("tenders"));
+ const [form,setForm]=useState<CrmRecord>(()=>makeDefault("tenders",user.name));
  const [navOpen,setNavOpen]=useState(false);
  const [guide,setGuide]=useState(false);
  const [alerts,setAlerts]=useState(false);
  const [toast,setToast]=useState("");
  const [confirmDelete,setConfirmDelete]=useState(false);
 
+ async function loadRecords(){
+  const response=await fetch("/api/forge/records",{cache:"no-store"});
+  if(!response.ok)throw new Error(response.status===401?"Session expired. Please sign in again.":"Unable to load CRM records");
+  const result=await response.json();
+  setStore(result.records as CrmStore);setLoaded(true);
+ }
+ async function loadStaff(){
+  const response=await fetch("/api/forge/users",{cache:"no-store"});
+  if(response.ok){const result=await response.json();setStaff(result.users)}
+ }
+ async function loadAttachments(recordId:string){
+  const response=await fetch("/api/forge/attachments?recordId="+encodeURIComponent(recordId),{cache:"no-store"});
+  if(response.ok){const result=await response.json();setAttachments(result.attachments)}
+ }
  useEffect(()=>{
-  const raf=requestAnimationFrame(()=>{
-   try{
-    const stored=localStorage.getItem("forge-showcase-v1");
-    if(stored){
-      const parsed:unknown=JSON.parse(stored);
-      if(parsed && typeof parsed==="object" && modules.every(k=>Array.isArray((parsed as CrmStore)[k])))setStore(parsed as CrmStore);
-    }
-   }catch{}
-   setLoaded(true);
-  });
-  return ()=>cancelAnimationFrame(raf);
+  let cancelled=false;
+  Promise.all([fetch("/api/forge/records",{cache:"no-store"}),fetch("/api/forge/users",{cache:"no-store"})])
+   .then(async ([records,users])=>{
+    if(!records.ok)throw new Error("Could not load CRM records");
+    const data=await records.json();
+    if(!cancelled){setStore(data.records);setLoaded(true)}
+    if(users.ok){const staffData=await users.json();if(!cancelled)setStaff(staffData.users)}
+   }).catch(error=>{if(!cancelled)setToast(error instanceof Error?error.message:"Could not connect to CRM")});
+  return ()=>{cancelled=true};
  },[]);
  useEffect(()=>{
-  if(!loaded)return;
-  try{localStorage.setItem("forge-showcase-v1",JSON.stringify(store))}catch{}
- },[store,loaded]);
+  if(!drawer?.id){return}
+  let cancelled=false;
+  fetch("/api/forge/attachments?recordId="+encodeURIComponent(drawer.id),{cache:"no-store"})
+   .then(async r=>r.ok?r.json():{attachments:[]}).then(data=>{if(!cancelled)setAttachments(data.attachments)})
+   .catch(()=>{if(!cancelled)setAttachments([])});
+  return ()=>{cancelled=true};
+ },[drawer?.id]);
  useEffect(()=>{
   if(!toast)return;
   const t=window.setTimeout(()=>setToast(""),3600);
@@ -72,7 +99,7 @@ export function CRMShowcase(){
  const openTenders=store.tenders.filter(r=>!["Awarded","Declined"].includes(r.status));
  const activeProjects=store.projects.filter(r=>!["Completed","On Hold"].includes(r.status));
  const pendingQuotes=store.quotes.filter(r=>!["Approved","Rejected"].includes(r.status));
- const urgentTasks=store.tasks.filter(r=>r.status!=="Done"&&r.date<="2026-10-24");
+ const urgentTasks=store.tasks.filter(r=>r.status!=="Done"&&r.date<=new Date(Date.now()+10*86400000).toISOString().slice(0,10));
  const tendervalue=openTenders.reduce((s,r)=>s+r.amount,0);
  const revenue=store.projects.filter(r=>r.status!=="Completed").reduce((s,r)=>s+r.amount,0);
  const quoteValue=pendingQuotes.reduce((s,r)=>s+r.amount,0);
@@ -82,38 +109,72 @@ export function CRMShowcase(){
  const pageConfig=active!=="overview"&&active!=="insights"?config[active]:null;
  function changeView(view:ViewKey){setActive(view);setQuery("");setFilter("All statuses");setDisplay("list");setNavOpen(false);setAlerts(false)}
  function startForm(module:ModuleKey,record?:CrmRecord,mode:"create"|"view"|"edit"="view"){
-  setForm(record?{...record}:makeDefault(module));
+  setForm(record?{...record}:makeDefault(module,user.name));
   setDrawer({module,mode,id:record?.id});
   setConfirmDelete(false);
   setAlerts(false);
  }
- function updateStatus(module:ModuleKey,id:string,status:string){
-  setStore(s=>({...s,[module]:s[module].map(r=>r.id===id?{...r,status,...(module==="projects"&&status==="Completed"?{progress:100}:{})}:r)}));
-  setForm(f=>f.id===id?{...f,status}:f);
-  setToast("Status updated successfully");
+ async function updateStatus(module:ModuleKey,id:string,status:string){
+  try{
+   const res=await fetch("/api/forge/records/"+encodeURIComponent(id),{method:"PATCH",headers:{"Content-Type":"application/json"},body:JSON.stringify({status})});
+   const body=await res.json();if(!res.ok)throw new Error(body.error||"Status update failed");
+   await loadRecords();setForm(f=>f.id===id?{...f,status}:f);setToast("Workflow stage updated");
+  }catch(error){setToast(error instanceof Error?error.message:"Status update failed")}
  }
- function save(e:FormEvent<HTMLFormElement>){
-  e.preventDefault();
-  if(!drawer)return;
+ async function save(e:FormEvent<HTMLFormElement>){
+  e.preventDefault();if(!drawer||saving)return;
   const moduleKey=drawer.module;
-  const record:CrmRecord={...form,title:form.title.trim(),client:form.client.trim(),description:form.description.trim(),amount:Math.max(0,Number(form.amount)||0),progress:moduleKey==="projects"?Math.min(100,Math.max(0,Number(form.progress)||0)):undefined};
+  const record:CrmRecord={...form,title:form.title.trim(),client:form.client.trim(),description:form.description.trim(),amount:Math.max(0,Number(form.amount)||0),progress:moduleKey==="projects"?Math.min(100,Math.max(0,Number(form.progress)||0)):0};
   if(!record.title||!record.client){setToast("A title and organisation are required");return}
-  if(drawer.mode==="create"){
-   const prefix={tenders:"TND",quotes:"Q",projects:"PRJ",clients:"CON",tasks:"TSK",documents:"DOC"}[moduleKey];
-   record.id=prefix+"-"+String(Date.now()).slice(-7);
-   setStore(s=>({...s,[moduleKey]:[record,...s[moduleKey]]}));
-   setToast("New "+config[moduleKey].singular.toLowerCase()+" added to the demo");
-  }else{
-   setStore(s=>({...s,[moduleKey]:s[moduleKey].map(r=>r.id===drawer.id?record:r)}));
-   setToast("Record updated successfully");
-  }
-  setDrawer(null);
+  setSaving(true);
+  try{
+   const creating=drawer.mode==="create";
+   const response=await fetch(creating?"/api/forge/records":"/api/forge/records/"+encodeURIComponent(drawer.id||""),{
+    method:creating?"POST":"PATCH",headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({...record,kind:moduleKey})
+   });
+   const body=await response.json();if(!response.ok)throw new Error(body.error||"Unable to save record");
+   await loadRecords();setDrawer(null);
+   setToast(creating?"Record created successfully":"Record saved successfully");
+  }catch(error){setToast(error instanceof Error?error.message:"Unable to save record")}
+  finally{setSaving(false)}
  }
- function remove(){
-  if(!drawer?.id)return;
-  const id=drawer.id,moduleKey=drawer.module;
-  setStore(s=>({...s,[moduleKey]:s[moduleKey].filter(r=>r.id!==id)}));
-  setDrawer(null);setConfirmDelete(false);setToast("Demo record deleted");
+ async function remove(){
+  if(!drawer?.id || user.role!=="admin")return;
+  try{
+   const response=await fetch("/api/forge/records/"+encodeURIComponent(drawer.id),{method:"DELETE"});
+   const result=await response.json();if(!response.ok)throw new Error(result.error||"Unable to delete");
+   await loadRecords();setDrawer(null);setConfirmDelete(false);setToast("Record deleted");
+  }catch(error){setToast(error instanceof Error?error.message:"Delete failed")}
+ }
+ async function uploadAttachment(event:FormEvent<HTMLFormElement>){
+  event.preventDefault();if(!drawer?.id||uploading)return;
+  const form=new FormData(event.currentTarget);
+  form.set("recordId",drawer.id);
+  setUploading(true);
+  try{
+   const response=await fetch("/api/forge/attachments",{method:"POST",body:form});
+   const result=await response.json();if(!response.ok)throw new Error(result.error||"Unable to upload");
+   await loadAttachments(drawer.id);
+   setToast("File securely uploaded");event.currentTarget.reset();
+  }catch(error){setToast(error instanceof Error?error.message:"Upload failed")}
+  finally{setUploading(false)}
+ }
+ async function removeAttachment(id:string){
+  if(user.role!=="admin"||!drawer?.id)return;
+  const response=await fetch("/api/forge/attachments/"+encodeURIComponent(id),{method:"DELETE"});
+  if(response.ok){await loadAttachments(drawer.id);setToast("Attachment deleted")}
+  else {const result=await response.json();setToast(result.error||"Unable to delete attachment")}
+ }
+ async function createStaff(event:FormEvent<HTMLFormElement>){
+  event.preventDefault();if(staffBusy)return;setStaffBusy(true);
+  try{
+   const r=await fetch("/api/forge/users",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(newStaff)});
+   const data=await r.json();if(!r.ok)throw new Error(data.error||"Unable to add user");
+   setNewStaff({name:"",email:"",password:"",role:"editor"});await loadStaff();
+   setToast("New staff account created");
+  }catch(error){setToast(error instanceof Error?error.message:"Could not create staff account")}
+  finally{setStaffBusy(false)}
  }
  function exportCsv(){
   if(!pageConfig||active==="overview"||active==="insights")return;
@@ -125,10 +186,10 @@ export function CRMShowcase(){
   anchor.href=url;anchor.download="forge-"+active+"-demo.csv";anchor.click();
   URL.revokeObjectURL(url);setToast("CSV export prepared with sample data");
  }
- function reset(){
-  setStore(structuredClone(firstStore));setDrawer(null);setGuide(false);setToast("Sample workspace restored");
+ async function refresh(){
+  try{await Promise.all([loadRecords(),loadStaff()]);setToast("Workspace refreshed")}
+  catch(error){setToast(error instanceof Error?error.message:"Unable to refresh")}
  }
-
  function recordTable(rows:CrmRecord[],module:ModuleKey){
   return <div className="forge-table-scroll"><table className="forge-table"><thead><tr><th>{config[module].columns[0]}</th><th>{config[module].columns[1]}</th><th>Owner</th><th>Status</th><th>{module==="clients"?"Last touch":module==="tasks"?"Due date":module==="documents"?"Review by":config[module].columns[3]}</th><th className="forge-money-col">{["tenders","quotes","projects"].includes(module)?"Value":""}</th><th aria-label="Actions"/></tr></thead><tbody>
    {rows.map(row=><tr key={row.id} onClick={()=>startForm(module,row)}><td className="forge-row-title"><strong>{row.title}</strong><small>{row.id}</small></td><td className="forge-client">{row.client}</td><td><span className="forge-owner"><i>{avatar(row.owner)}</i>{row.owner}</span></td><td><Pill status={row.status}/></td><td className="forge-date">{shortDate(row.date)}</td><td className="forge-money-col">{["tenders","quotes","projects"].includes(module)?money(row.amount):""}</td><td><button className="forge-row-action" title={"Open "+row.title} aria-label={"Open "+row.title} onClick={e=>{e.stopPropagation();startForm(module,row)}}><Icon name="chevron" size={17}/></button></td></tr>)}
