@@ -2,7 +2,7 @@ export type ModuleKey = "tenders" | "quotes" | "projects" | "clients" | "tasks" 
 export type ViewKey = "overview" | ModuleKey | "insights";
 export type CrmRecord = {
  id:string; title:string; client:string; owner:string; status:string;
- amount:number; date:string; description:string; progress?:number; sourceId?:string;
+ amount:number; date:string; description:string; progress?:number; sourceId?:string; isSample?:boolean;
 };
 export type CrmStore = Record<ModuleKey,CrmRecord[]>;
 export const modules:ModuleKey[]=["tenders","quotes","projects","clients","tasks","documents"];
