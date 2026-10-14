@@ -398,3 +398,112 @@ h2,.section-head h2{font-size:clamp(40px,4.6vw,65px);line-height:1.11}
  *,*::before,*::after{transition-duration:0.01ms!important;animation-duration:0.01ms!important}
  html{scroll-behavior:auto}
 }
+
+/* =========================================================================
+   NAVIGATION LINK STATES & ACCESSIBLE FOOTER CONTRAST
+   Visiting a link must not change its colour. Current page uses an underline,
+   not a persistent visited-link colour.
+   ====================================================================== */
+
+/* Header: a predictable neutral label for unvisited and visited links. */
+.header .nav a:link,
+.header .nav a:visited{
+  color:#243238;
+  text-decoration:none;
+}
+.header .nav a[aria-current="page"]:link,
+.header .nav a[aria-current="page"]:visited{
+  color:#243238;
+  font-weight:850;
+}
+.header .nav a:hover,
+.header .nav a:focus-visible{
+  color:#aa4421;
+}
+/* The page indicator remains separate from link text colour. */
+.header .nav a[aria-current="page"]:not(.mobile-contact)::after{
+  background:var(--orange);
+}
+.header .logo:link,
+.header .logo:visited{
+  color:var(--ink);
+}
+.header .nav-button:link,
+.header .nav-button:visited,
+.header .nav a.mobile-contact:link,
+.header .nav a.mobile-contact:visited{
+  color:#fff;
+}
+.header .nav a.mobile-contact:hover{
+  color:#fff;
+  background:#ce542a;
+}
+.utility a:link,
+.utility a:visited{
+  color:#f2eee7;
+}
+.utility a:hover,
+.utility a:focus-visible{
+  color:#fbb18e;
+}
+
+/* Footer: distinct, readable links regardless of browser history. */
+.footer .footer-grid > div:not(:first-child) > a:link,
+.footer .footer-grid > div:not(:first-child) > a:visited{
+  color:#ecf3ef;
+  font-size:14px;
+  font-weight:550;
+  line-height:1.65;
+  letter-spacing:.005em;
+  text-decoration:none;
+}
+.footer .footer-grid > div:not(:first-child) > a:hover,
+.footer .footer-grid > div:not(:first-child) > a:focus-visible{
+  color:#ffb58f;
+  text-decoration:underline;
+  text-decoration-thickness:1px;
+  text-underline-offset:5px;
+}
+.footer .footer-grid h4{
+  color:#fff;
+  font-size:11px;
+  letter-spacing:.16em;
+  margin-bottom:11px;
+}
+.footer .footer-grid > div:not(:first-child){
+  gap:17px;
+}
+.footer .logo:link,
+.footer .logo:visited{
+  color:#fff;
+}
+.footer .footer-bottom > a:link,
+.footer .footer-bottom > a:visited{
+  color:#f2f5f1;
+}
+.footer .footer-bottom > a:hover,
+.footer .footer-bottom > a:focus-visible{
+  color:#ffb58f;
+}
+.footer .footer-intro > a.button:link,
+.footer .footer-intro > a.button:visited{
+  color:#fff;
+}
+.footer .footer-grid p,
+.footer .footer-intro > p{
+  color:#c2cdca;
+}
+.footer .footer-bottom{
+  color:#b5c1bd;
+}
+@media(max-width:1169px){
+  .header .nav a.mobile-contact:link,
+  .header .nav a.mobile-contact:visited,
+  .header .nav a.mobile-contact:hover{
+    color:#fff;
+  }
+  .header .nav a[aria-current="page"]:not(.mobile-contact){
+    border-left:3px solid var(--orange);
+    padding-left:12px;
+  }
+}
