@@ -95,24 +95,24 @@ export function CRMShowcase(){
  function save(e:FormEvent<HTMLFormElement>){
   e.preventDefault();
   if(!drawer)return;
-  const module=drawer.module;
-  const record:CrmRecord={...form,title:form.title.trim(),client:form.client.trim(),description:form.description.trim(),amount:Math.max(0,Number(form.amount)||0),progress:module==="projects"?Math.min(100,Math.max(0,Number(form.progress)||0)):undefined};
+  const moduleKey=drawer.module;
+  const record:CrmRecord={...form,title:form.title.trim(),client:form.client.trim(),description:form.description.trim(),amount:Math.max(0,Number(form.amount)||0),progress:moduleKey==="projects"?Math.min(100,Math.max(0,Number(form.progress)||0)):undefined};
   if(!record.title||!record.client){setToast("A title and organisation are required");return}
   if(drawer.mode==="create"){
-   const prefix={tenders:"TND",quotes:"Q",projects:"PRJ",clients:"CON",tasks:"TSK",documents:"DOC"}[module];
+   const prefix={tenders:"TND",quotes:"Q",projects:"PRJ",clients:"CON",tasks:"TSK",documents:"DOC"}[moduleKey];
    record.id=prefix+"-"+String(Date.now()).slice(-7);
-   setStore(s=>({...s,[module]:[record,...s[module]]}));
-   setToast("New "+config[module].singular.toLowerCase()+" added to the demo");
+   setStore(s=>({...s,[moduleKey]:[record,...s[moduleKey]]}));
+   setToast("New "+config[moduleKey].singular.toLowerCase()+" added to the demo");
   }else{
-   setStore(s=>({...s,[module]:s[module].map(r=>r.id===drawer.id?record:r)}));
+   setStore(s=>({...s,[moduleKey]:s[moduleKey].map(r=>r.id===drawer.id?record:r)}));
    setToast("Record updated successfully");
   }
   setDrawer(null);
  }
  function remove(){
   if(!drawer?.id)return;
-  const id=drawer.id,module=drawer.module;
-  setStore(s=>({...s,[module]:s[module].filter(r=>r.id!==id)}));
+  const id=drawer.id,moduleKey=drawer.module;
+  setStore(s=>({...s,[moduleKey]:s[moduleKey].filter(r=>r.id!==id)}));
   setDrawer(null);setConfirmDelete(false);setToast("Demo record deleted");
  }
  function exportCsv(){
