@@ -5,8 +5,6 @@ import {isForgeConfigured,db} from "@/lib/forge/db";
 import {CRMShowcase} from "@/app/crm-demo/crm-showcase";
 import {ForgeSignIn} from "./sign-in";
 import {ForgePasswordChange} from "./change-password";
-import "../crm-demo/crm.css";
-import "./auth.css";
 export const metadata:Metadata={
  title:"FORGE | Construction CRM",
  description:"Secure construction CRM for tender management, quotations, projects, contacts and document control.",
